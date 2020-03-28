@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import routes from './routes';
+import NotFoundPage from './components/NotFound/Notfound';
 
-function App() {
+
+function App({ isAuth }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        {
+          routes.map(route => <Route
+            key={route.name}
+            exact
+            path={route.path}
+            protected={route.protected}
+            role={route.role}
+            render={
+              props => {
+                document.title = route.name
+                return (
+                  <route.component
+                    location={props.location}
+                    history={props.history}
+                    match={props.match}
+                  />
+                )
+              }
+            }
+          />
+          )
+        }
+        <Route path="*" exact component={NotFoundPage} />
+      </Switch>
+    </Router>
   );
 }
+
+
 
 export default App;
