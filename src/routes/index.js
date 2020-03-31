@@ -1,3 +1,4 @@
-import registerUser from './user/Signup';
+import Login from './user/Login';
+import Register from './user/Register';
 
-export default [registerUser];
+export default [Login, Register];
