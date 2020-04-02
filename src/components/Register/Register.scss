@@ -3,6 +3,7 @@ $bLight: #45aaf2;
 $paddingBtn: 13px 0px 13px 0px;
 $paddingInput: 10px 0px 10px 0px;
 $white: #ffffff;
+$grayText: #8e95a0;
 
 .logo-lima {
     display: block;
@@ -29,16 +30,11 @@ $white: #ffffff;
     font-weight: bold;
 }
 
-.btn-sign-in {
-    width: 100% !important;
-    padding: $paddingBtn !important;
-    background-color: $blue !important;
-    color: $white !important;
-    border-radius: 8px !important;
-    -webkit-border-radius: 8px !important;
-    -moz-border-radius: 8px !important;
-    -ms-border-radius: 8px !important;
-    -o-border-radius: 8px !important;
+.register-text {
+    font-size: 20px;
+    text-align: center;
+    color: $blue;
+    font-weight: bold;
 }
 
 input[type="text"] {
@@ -64,6 +60,7 @@ input[type="password"] {
     -ms-border-radius: 8px !important;
     -o-border-radius: 8px !important;
 }
+
 
 ::placeholder {
     color: #bdbdbd !important;
@@ -102,4 +99,102 @@ label {
 
 #element {
     overflow: hidden !important;
+}
+
+.scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+.back-confirm {
+    width: 40%;
+    background-color: $blue !important;
+    color: $white !important;
+    border-radius: 8px !important;
+    -webkit-border-radius: 8px !important;
+    -moz-border-radius: 8px !important;
+    -ms-border-radius: 8px !important;
+    -o-border-radius: 8px !important;
+}
+
+.confirm-last {
+    width: 50%;
+}
+
+.center-btn {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+.confirm {
+    background-color: $blue !important;
+    color: $white !important;
+    float: right;
+    border-radius: 8px !important;
+    -webkit-border-radius: 8px !important;
+    -moz-border-radius: 8px !important;
+    -ms-border-radius: 8px !important;
+    -o-border-radius: 8px !important;
+}
+
+input[control="Select"] {
+    background-color: #eeeeee !important;
+    border: 1px solid #eeeeee !important;
+}
+
+#select {
+    background-color: #eeeeee !important;
+    border: 1px solid #eeeeee !important;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+#form-code {
+    width: 35px;
+    text-align: center;
+}
+
+.block {
+    height: 33px;
+    width: 45px;
+    border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    margin-right: 25.5px !important;
+}
+
+.block:nth-child(5n) {
+    margin-right: 20px !important;
+}
+
+.block:nth-child(6n) {
+    margin-right: 6% !important;
+}
+
+.text-digits {
+    text-align: center;
+    padding-top: 70px;
+}
+
+.form-digits {
+    padding-top: 20px;
+}
+
+.btn-sign-in {
+    margin-top: 10px !important;
+}
+
+.text-digits {
+    color: #8e95a0;
 }

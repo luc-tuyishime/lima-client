@@ -19,9 +19,9 @@ const RaindropImage = ({ children }) => {
                 <div className="phone-container">
                     <Image src={FarmPhone} id="raindrop-phone" alt="phone" />
                     <div className="rounded-cicle">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                        <span className="dot"></span>
                     </div>
                 </div>
 
