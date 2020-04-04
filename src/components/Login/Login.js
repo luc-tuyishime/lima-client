@@ -40,7 +40,7 @@ export class Login extends Component {
                                                 <input type="password" placeholder='password' />
                                             </Form.Field>
                                             <Btn className="btn-sign-in" type='submit'>SIGN IN</Btn>
-                                            <p className="forgot-password">Forgot Password ?</p>
+                                            <Link to="/forgot-password"><p className="forgot-password">Forgot Password ?</p></Link>
                                             <p className="language-text">EN | FR | KIN</p>
                                             <p className="copyright">MahwiTech. Ltd &copy 2020 | Terms and Conditiond</p>
                                         </Form>
