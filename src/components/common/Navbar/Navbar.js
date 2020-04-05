@@ -1,17 +1,11 @@
 import React, { Component } from 'react'
-import { Input, Menu, Image } from 'semantic-ui-react';
-
+import { Input, Menu, Image, Icon } from 'semantic-ui-react';
 import './Navbar.scss';
 
 const LimaLogo = require('../../../assets/images/Logo2.png')
 
 export default class Navbar extends Component {
-  state = { activeItem: 'home' }
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
   render() {
-    const { activeItem } = this.state
 
     return (
       <div className="Navbar">
@@ -20,15 +14,18 @@ export default class Navbar extends Component {
             <div className="div-left">
               <Image className="logo-lima" src={LimaLogo} alt="logo" />
             </div>
+            
             <Menu.Menu position='right'>
+              <p className="text-bottom">System admin</p> 
               <Menu.Item>
-                <Input icon='search' placeholder='Search...' />
+              <Icon className="bell" size="big" name='user circle' />
+            </Menu.Item>
+              <Menu.Item>
+                <Icon className="bell" name='mail' />
               </Menu.Item>
-              <Menu.Item
-                name='logout'
-                active={activeItem === 'logout'}
-                onClick={this.handleItemClick}
-              />
+              <Menu.Item>
+                <Icon className="bell" name='bell' />
+              </Menu.Item>
             </Menu.Menu>
           </Menu>
         </div>
