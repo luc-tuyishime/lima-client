@@ -9,13 +9,11 @@ $yellow: #f3ea21;
     position: relative;
     top: 0;
     left: 0;
-    background-color: #2980b9;
 }
 
 .image-farm {
     width: $width;
     height: $height;
-    opacity: 0.3;
     overflow: hidden;
 }
 
@@ -25,6 +23,7 @@ $yellow: #f3ea21;
     top: 25px;
     left: 0;
     width: 100%;
+    z-index: 1 !important;
     color: $white;
     font-size: 23px;
     white-space: pre-line;
@@ -37,6 +36,7 @@ $yellow: #f3ea21;
     left: 0;
     width: 100%;
     color: $white;
+    z-index: 1 !important;
     font-size: 23px;
     white-space: pre-line;
 }
@@ -48,6 +48,7 @@ $yellow: #f3ea21;
     left: 0;
     top: 0;
     bottom: 140px;
+    z-index: 1 !important;
     margin: auto auto;
 
 }
@@ -56,6 +57,7 @@ $yellow: #f3ea21;
 #btn-rain {
     position: absolute;
     left: 50%;
+    z-index: 1 !important;
     padding: 13px 50px 13px 50px;
     background: $white;
     border-radius: $radius;
@@ -122,5 +124,6 @@ $yellow: #f3ea21;
     margin-left: 25px;
     display: inline !important;
     position: relative;
+    z-index: 1 !important;
     bottom: 70px;
 }
