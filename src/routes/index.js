@@ -4,6 +4,14 @@ import ForgotPassword from './user/ForgotPassword';
 import UpdatePassword from './user/UpdateUsingPassword';
 import UpdatePasswordPhone from './user/UpdateUsingPhone';
 import RolesPermissions from './admin/RolesPermissions';
+import ManageUsers from './admin/ManageUsers';
 
-export default [Login, Register, ForgotPassword,
-    UpdatePassword, UpdatePasswordPhone, RolesPermissions];
+export default [
+   Login,
+   Register,
+   ForgotPassword,
+   UpdatePassword,
+   UpdatePasswordPhone,
+   RolesPermissions,
+   ManageUsers,
+];

@@ -7,5 +7,5 @@ import apiMiddleware from '../middlewares/apiMiddleware';
 const middlewares = [thunk, apiMiddleware];
 
 export default createStore(
-    composeWithDevTools(applyMiddleware(...middlewares))
+   composeWithDevTools(applyMiddleware(...middlewares))
 );
