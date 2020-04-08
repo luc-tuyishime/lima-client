@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
-import UserSidebar from '../../common/Sidebar/Sidebar';
 import { Grid } from 'semantic-ui-react';
+import UserSidebar from '../../common/Sidebar/Sidebar';
 import Navbar from '../../common/Navbar/Navbar';
 import { MiniNavbar } from '../../common/Navbar/MiniNavbar';
-import RolePermissionTable from './RolesPermissionsTable';
+import ManageUsersTable from './ManageUsersTable';
 
 import '../../../assets/css/table.scss';
 
-class RolesPermissions extends Component {
+class ManageUsers extends Component {
    render() {
       return (
          <div className="bg-container">
             <Navbar />
-            <MiniNavbar home="Home" settings={<>Settings</>}
-               users={<><span className="blue-color">Roles & Permissions</span></>} />
+            <MiniNavbar home="Home" settings={<>Settings</>} users={<><span className="blue-color">Manage Users</span></>} />
             <Grid>
                <Grid.Column width={3}>
                   <UserSidebar />
                </Grid.Column>
-               <Grid.Column className="style-role" width={13}>
-                  <RolePermissionTable />
+               <Grid.Column width={13}>
+                  <ManageUsersTable />
                </Grid.Column>
             </Grid>
          </div>
@@ -27,4 +26,4 @@ class RolesPermissions extends Component {
    }
 }
 
-export default RolesPermissions;
+export default ManageUsers;

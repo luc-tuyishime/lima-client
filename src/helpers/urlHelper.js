@@ -8,14 +8,14 @@ const port = (location.port && `:${location.port}`) || '';
 const { REACT_APP_URL_BACKEND, REACT_APP_URL_FRONTEND } = process.env;
 
 const frontend = {
-    reactUrl: REACT_APP_URL_FRONTEND,
-    herokuUrl: '',
-    defaultUrl: `${protocol}//${hostname}${port ? `:${port}` : ''}`
+   reactUrl: REACT_APP_URL_FRONTEND,
+   herokuUrl: '',
+   defaultUrl: `${protocol}//${hostname}${port ? `:${port}` : ''}`,
 };
 
 const backend = {
-    reactUrl: REACT_APP_URL_BACKEND,
-    defaultUrl: `${protocol}//${hostname}${port ? `:${port}` : ''}`
+   reactUrl: REACT_APP_URL_BACKEND,
+   defaultUrl: `${protocol}//${hostname}${port ? `:${port}` : ''}`,
 };
 
 export { frontend, backend };

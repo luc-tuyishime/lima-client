@@ -1,105 +1,107 @@
-$blue:#2980b9;
+$blue: #2980b9;
 $bLight: #45aaf2;
 $paddingBtn: 13px 0px 13px 0px;
 $paddingInput: 10px 0px 10px 0px;
 $white: #ffffff;
 
 .logo-lima {
-    display: block;
-    margin: 0 auto;
-    padding-top: 24px;
-    width: 25%;
+  display: block;
+  margin: 0 auto;
+  padding-top: 24px;
+  width: 25%;
 }
 
 .hidden-scroll {
-    overflow: hidden !important;
+  overflow: hidden !important;
 }
 
 .text-lima {
-    font-size: 18px;
-    color: #8e95a0;
-    text-align: center;
+  font-size: 18px;
+  color: #8e95a0;
+  text-align: center;
 }
 
 .login-text {
-    font-size: 20px;
-    margin-top: 80px;
-    text-align: center;
-    color: $blue;
-    font-weight: bold;
+  font-size: 20px;
+  margin-top: 80px;
+  text-align: center;
+  color: $blue;
+  font-weight: bold;
 }
 
 .btn-sign-in {
-    width: 100% !important;
-    padding: $paddingBtn !important;
-    background-color: $blue !important;
-    color: $white !important;
-    border-radius: 8px !important;
-    -webkit-border-radius: 8px !important;
-    -moz-border-radius: 8px !important;
-    -ms-border-radius: 8px !important;
-    -o-border-radius: 8px !important;
+  width: 100% !important;
+  padding: $paddingBtn !important;
+  background-color: $blue !important;
+  color: $white !important;
+  border-radius: 8px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
 }
 
-input[type="text"] {
-    background-color: #eeeeee !important;
-    border: 1px solid #eeeeee !important;
-    padding: $paddingInput !important;
-    padding: 10px !important;
-    border-radius: 8px !important;
-    -webkit-border-radius: 8px !important;
-    -moz-border-radius: 8px !important;
-    -ms-border-radius: 8px !important;
-    -o-border-radius: 8px !important;
+input[type='text'] {
+  background-color: #eeeeee !important;
+  border: 1px solid #eeeeee !important;
+  padding: $paddingInput !important;
+  padding: 10px !important;
+  border-radius: 8px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
 }
 
-input[type="password"] {
-    background-color: #eeeeee !important;
-    border: 1px solid #eeeeee !important;
-    padding: $paddingInput !important;
-    border-radius: 8px !important;
-    padding: 10px !important;
-    -webkit-border-radius: 8px !important;
-    -moz-border-radius: 8px !important;
-    -ms-border-radius: 8px !important;
-    -o-border-radius: 8px !important;
+input[type='password'] {
+  background-color: #eeeeee !important;
+  border: 1px solid #eeeeee !important;
+  padding: $paddingInput !important;
+  border-radius: 8px !important;
+  padding: 10px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
 }
 
 ::placeholder {
-    color: #bdbdbd !important;
-    padding-right: 20px !important;
-    opacity: 1 !important;
+  color: #bdbdbd !important;
+  padding-right: 20px !important;
+  opacity: 1 !important;
 }
 
 :-ms-input-placeholder {
-    color: #bdbdbd !important;
+  color: #bdbdbd !important;
 }
 
 ::-ms-input-placeholder {
-    color: #bdbdbd !important;
+  color: #bdbdbd !important;
 }
 
-label {
-    color: $bLight !important;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+.label {
+  background-color: #fff !important;
+  color: $bLight !important;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
 }
 
 .forgot-password {
-    text-align: center;
-    padding-top: 15px;
+  text-align: center;
+  padding-top: 15px;
 }
 
 .language-text {
-    text-align: center;
-    color: $bLight;
+  text-align: center;
+  color: $bLight;
 }
 
 .copyright {
-    color: $bLight;
-    position: fixed;
-    bottom: 0;
+  color: $bLight;
+  position: fixed;
+  bottom: 0;
 }
 
 #element {
-    overflow: hidden !important;
+  overflow: hidden !important;
 }

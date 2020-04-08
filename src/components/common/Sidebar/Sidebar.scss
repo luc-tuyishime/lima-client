@@ -1,3 +1,6 @@
+$padding: 10px 0 10px 0;
+
+
 .Sidebar-content {
     .sidebar-height {
         height: 100vh !important;
@@ -12,7 +15,7 @@
 
     .sidebar-width {
         background-color: #079992 !important;
-        width: 16% !important;
+        width: 100% !important;
     }
 
     .icon-accordeon {
@@ -34,8 +37,24 @@
         color: white !important;
     }
 
-    .icons-style{
+    .icons-style {
         height: 33px !important;
         float: left !important;
+    }
+
+    .link-color {
+        color: #fff !important;
+    }
+
+    .link-color:hover {
+        color: #00e676 !important;
+    }
+
+    .text-side {
+        padding: $padding !important;
+    }
+
+    .active {
+        color: Black !important;
     }
 }
