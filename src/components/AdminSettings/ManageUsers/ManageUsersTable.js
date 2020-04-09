@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Table, Icon, Search } from 'semantic-ui-react';
 
 import '../../../assets/css/table.scss';
+import './ManageUsers.scss';
 
 class ManageUsersTable extends Component {
   render() {
     return (
-      <>
+      <div className="manage-user-table">
         <Search
           className="search"
           fluid
@@ -102,7 +103,7 @@ class ManageUsersTable extends Component {
           </Table.Body>
         </Table>
         <p id="footer-content">Copyright &copy; MAHWI Tech Ltd</p>
-      </>
+      </div>
     );
   }
 }

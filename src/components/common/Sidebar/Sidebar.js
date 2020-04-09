@@ -49,8 +49,9 @@ class UserSidebar extends Component {
                               </div>
                            </Accordion.Title>
                            <Accordion.Content active={activeIndex === 0}>
-                              <p>Lorem 1</p>
-                              <p>Lorem 2</p>
+                              <Link className="link-color" to="/view-farmers">
+                                 <p className="text-side">All</p>
+                              </Link>
                            </Accordion.Content>
                         </Accordion>
                      </Menu.Item>
