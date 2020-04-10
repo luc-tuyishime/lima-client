@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, Table, Search, Grid, Button, Icon } from 'semantic-ui-react';
+import { Card, Table, Search, Grid, Button, Icon, Popup } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 import '../../../assets/css/table.scss';
 
@@ -23,8 +24,8 @@ class ViewFarmersTable extends Component {
                                     />
                                 </Grid.Column>
                                 <Grid.Column floated='right' width={2}>
-                                    <Button primary><Icon name='plus' />
-                                        New</Button>
+                                    <Link to="create-farmer"><Button primary><Icon name='plus' />
+                                        New</Button></Link>
                                 </Grid.Column>
                             </Grid>
 
@@ -40,6 +41,7 @@ class ViewFarmersTable extends Component {
                                         <Table.HeaderCell>Zone</Table.HeaderCell>
                                         <Table.HeaderCell>Phone number</Table.HeaderCell>
                                         <Table.HeaderCell>e-mail</Table.HeaderCell>
+                                        <Table.HeaderCell>Actions</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
 
@@ -54,6 +56,9 @@ class ViewFarmersTable extends Component {
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
+                                        <Table.Cell>
+                                            <Popup content='Edit' trigger={<Link to="/edit-farmer"><Icon color="yellow" name="edit" /></Link>} />
+                                        </Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Jamie Harington</Table.Cell>
@@ -65,6 +70,9 @@ class ViewFarmersTable extends Component {
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
+                                        <Table.Cell>
+                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
+                                        </Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Jill Lewis</Table.Cell>
@@ -76,6 +84,9 @@ class ViewFarmersTable extends Component {
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
+                                        <Table.Cell>
+                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
+                                        </Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Jill Lewis</Table.Cell>
@@ -87,6 +98,9 @@ class ViewFarmersTable extends Component {
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
+                                        <Table.Cell>
+                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
+                                        </Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Jill Lewis</Table.Cell>
@@ -98,6 +112,9 @@ class ViewFarmersTable extends Component {
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
+                                        <Table.Cell>
+                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
+                                        </Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Jill Lewis</Table.Cell>
@@ -109,6 +126,9 @@ class ViewFarmersTable extends Component {
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
+                                        <Table.Cell>
+                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
+                                        </Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Jill Lewis</Table.Cell>
@@ -120,6 +140,9 @@ class ViewFarmersTable extends Component {
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
+                                        <Table.Cell>
+                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
+                                        </Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Jill Lewis</Table.Cell>
@@ -131,6 +154,9 @@ class ViewFarmersTable extends Component {
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
                                         <Table.Cell>No</Table.Cell>
+                                        <Table.Cell>
+                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
+                                        </Table.Cell>
                                     </Table.Row>
                                 </Table.Body>
                             </Table>

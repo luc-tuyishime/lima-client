@@ -11,7 +11,7 @@ const LimaLogo = require('../../assets/images/Logo2.png');
 export class Login extends Component {
   render() {
     return (
-      <div id="element">
+      <div className="select-part" id="element">
         <Grid divided="vertically">
           <Grid.Row columns={2}>
             <Grid.Column>

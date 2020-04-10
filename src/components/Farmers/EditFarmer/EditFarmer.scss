@@ -1,0 +1,48 @@
+.edit-farmer {
+    #edit-scroll {
+        height: 70% !important;
+        overflow: scroll !important;
+        overflow-x: hidden !important;
+    }
+
+    .text-farmer-edit {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .image-rounded {
+        border: 1px solid #bdbdbd !important;
+    }
+
+    .icon-upload {
+        cursor: pointer !important;
+        margin-left: 55px;
+        background-color: white !important;
+        border-radius: 30px;
+        position: absolute;
+        bottom: 25px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        -ms-border-radius: 30px;
+        -o-border-radius: 30px;
+    }
+
+    .icon-upload:hover {
+        background-color: #f5f5f5 !important;
+    }
+
+    .btn-edit {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .width-segment {
+        width: 98%;
+    }
+
+    // #scroll {
+    //     // height: 30%;
+    //     overflow-y: scroll !important;
+    //     overflow-x: hidden !important;
+    // }
+}

@@ -29,18 +29,18 @@ class UpdatePassword extends Component {
       return data.value === '' ||
          (/^\d+$/.test(data.value) && data.value.length === 1)
          ? this.setState({
-              form: {
-                 ...form,
-                 [data.name]: data.value,
-              },
-           })
+            form: {
+               ...form,
+               [data.name]: data.value,
+            },
+         })
          : '';
    };
 
    render() {
       const { form } = this.state;
       return (
-         <div id="element">
+         <div className="select-part" id="element">
             <Grid divided="vertically">
                <Grid.Row columns={2}>
                   <Grid.Column>

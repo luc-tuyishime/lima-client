@@ -5,196 +5,198 @@ $paddingInput: 10px 0px 10px 0px;
 $white: #ffffff;
 $grayText: #8e95a0;
 
-.logo-lima {
-    display: block;
-    margin: 0 auto;
-    padding-top: 24px;
-    width: 25%;
-}
+.select-part {
+    .logo-lima {
+        display: block;
+        margin: 0 auto;
+        padding-top: 24px;
+        width: 25%;
+    }
 
-.hidden-scroll {
-    overflow: hidden !important;
-}
+    .hidden-scroll {
+        overflow: hidden !important;
+    }
 
-.text-lima {
-    font-size: 18px;
-    color: #8e95a0;
-    text-align: center;
-}
+    .text-lima {
+        font-size: 18px;
+        color: #8e95a0;
+        text-align: center;
+    }
 
-.login-text {
-    font-size: 20px;
-    margin-top: 80px;
-    text-align: center;
-    color: $blue;
-    font-weight: bold;
-}
+    .login-text {
+        font-size: 20px;
+        margin-top: 80px;
+        text-align: center;
+        color: $blue;
+        font-weight: bold;
+    }
 
-.register-text {
-    font-size: 20px;
-    text-align: center;
-    color: $blue;
-    font-weight: bold;
-}
+    .register-text {
+        font-size: 20px;
+        text-align: center;
+        color: $blue;
+        font-weight: bold;
+    }
 
-input[type="text"] {
-    background-color: #eeeeee !important;
-    border: 1px solid #eeeeee !important;
-    padding: $paddingInput !important;
-    padding: 10px !important;
-    border-radius: 8px !important;
-    -webkit-border-radius: 8px !important;
-    -moz-border-radius: 8px !important;
-    -ms-border-radius: 8px !important;
-    -o-border-radius: 8px !important;
-}
+    input[type="text"] {
+        background-color: #eeeeee !important;
+        border: 1px solid #eeeeee !important;
+        padding: $paddingInput !important;
+        padding: 10px !important;
+        border-radius: 8px !important;
+        -webkit-border-radius: 8px !important;
+        -moz-border-radius: 8px !important;
+        -ms-border-radius: 8px !important;
+        -o-border-radius: 8px !important;
+    }
 
-input[type="password"] {
-    background-color: #eeeeee !important;
-    border: 1px solid #eeeeee !important;
-    padding: $paddingInput !important;
-    border-radius: 8px !important;
-    padding: 10px !important;
-    -webkit-border-radius: 8px !important;
-    -moz-border-radius: 8px !important;
-    -ms-border-radius: 8px !important;
-    -o-border-radius: 8px !important;
-}
-
-
-::placeholder {
-    color: #bdbdbd !important;
-    padding-right: 20px !important;
-    opacity: 1 !important;
-}
-
-:-ms-input-placeholder {
-    color: #bdbdbd !important;
-}
-
-::-ms-input-placeholder {
-    color: #bdbdbd !important;
-}
-
-label {
-    color: $bLight !important;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
-}
-
-.forgot-password {
-    text-align: center;
-    padding-top: 15px;
-}
-
-.language-text {
-    text-align: center;
-    color: $bLight;
-}
-
-.copyright {
-    color: $bLight;
-    position: fixed;
-    bottom: 0;
-}
-
-#element {
-    overflow: hidden !important;
-}
-
-.scroll {
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
+    input[type="password"] {
+        background-color: #eeeeee !important;
+        border: 1px solid #eeeeee !important;
+        padding: $paddingInput !important;
+        border-radius: 8px !important;
+        padding: 10px !important;
+        -webkit-border-radius: 8px !important;
+        -moz-border-radius: 8px !important;
+        -ms-border-radius: 8px !important;
+        -o-border-radius: 8px !important;
+    }
 
 
-.back-confirm {
-    width: 40%;
-    background-color: $blue !important;
-    color: $white !important;
-    border-radius: 8px !important;
-    -webkit-border-radius: 8px !important;
-    -moz-border-radius: 8px !important;
-    -ms-border-radius: 8px !important;
-    -o-border-radius: 8px !important;
-}
+    ::placeholder {
+        color: #bdbdbd !important;
+        padding-right: 20px !important;
+        opacity: 1 !important;
+    }
 
-.confirm-last {
-    width: 50%;
-}
+    :-ms-input-placeholder {
+        color: #bdbdbd !important;
+    }
 
-.center-btn {
-    position: absolute;
-    left: 50%;
-    right: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-}
+    ::-ms-input-placeholder {
+        color: #bdbdbd !important;
+    }
 
-.confirm {
-    background-color: $blue !important;
-    color: $white !important;
-    float: right;
-    border-radius: 8px !important;
-    -webkit-border-radius: 8px !important;
-    -moz-border-radius: 8px !important;
-    -ms-border-radius: 8px !important;
-    -o-border-radius: 8px !important;
-}
+    label {
+        color: $bLight !important;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+    }
 
-input[control="Select"] {
-    background-color: #eeeeee !important;
-    border: 1px solid #eeeeee !important;
-}
+    .forgot-password {
+        text-align: center;
+        padding-top: 15px;
+    }
 
-#select {
-    background-color: #eeeeee !important;
-    border: 1px solid #eeeeee !important;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -ms-border-radius: 8px;
-    -o-border-radius: 8px;
-}
+    .language-text {
+        text-align: center;
+        color: $bLight;
+    }
 
-#form-code {
-    width: 35px;
-    text-align: center;
-}
+    .copyright {
+        color: $bLight;
+        position: fixed;
+        bottom: 0;
+    }
 
-.block {
-    height: 33px;
-    width: 45px;
-    border-radius: 4px;
-    display: inline-block;
-    text-align: center;
-    font-size: 16px;
-    margin-right: 25.5px !important;
-}
+    #element {
+        overflow: hidden !important;
+    }
 
-.block:nth-child(5n) {
-    margin-right: 20px !important;
-}
+    .scroll {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
 
-.block:nth-child(6n) {
-    margin-right: 6% !important;
-}
 
-.text-digits {
-    text-align: center;
-    padding-top: 70px;
-}
+    .back-confirm {
+        width: 40%;
+        background-color: $blue !important;
+        color: $white !important;
+        border-radius: 8px !important;
+        -webkit-border-radius: 8px !important;
+        -moz-border-radius: 8px !important;
+        -ms-border-radius: 8px !important;
+        -o-border-radius: 8px !important;
+    }
 
-.form-digits {
-    padding-top: 20px;
-}
+    .confirm-last {
+        width: 50%;
+    }
 
-.btn-sign-in {
-    margin-top: 10px !important;
-}
+    .center-btn {
+        position: absolute;
+        left: 50%;
+        right: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+    }
 
-.text-digits {
-    color: #8e95a0;
+    .confirm {
+        background-color: $blue !important;
+        color: $white !important;
+        float: right;
+        border-radius: 8px !important;
+        -webkit-border-radius: 8px !important;
+        -moz-border-radius: 8px !important;
+        -ms-border-radius: 8px !important;
+        -o-border-radius: 8px !important;
+    }
+
+    input[control="Select"] {
+        background-color: #eeeeee !important;
+        border: 1px solid #eeeeee !important;
+    }
+
+    #select {
+        background-color: #eeeeee !important;
+        border: 1px solid #eeeeee !important;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+    }
+
+    #form-code {
+        width: 35px;
+        text-align: center;
+    }
+
+    .block {
+        height: 33px;
+        width: 45px;
+        border-radius: 4px;
+        display: inline-block;
+        text-align: center;
+        font-size: 16px;
+        margin-right: 25.5px !important;
+    }
+
+    .block:nth-child(5n) {
+        margin-right: 20px !important;
+    }
+
+    .block:nth-child(6n) {
+        margin-right: 6% !important;
+    }
+
+    .text-digits {
+        text-align: center;
+        padding-top: 70px;
+    }
+
+    .form-digits {
+        padding-top: 20px;
+    }
+
+    .btn-sign-in {
+        margin-top: 10px !important;
+    }
+
+    .text-digits {
+        color: #8e95a0;
+    }
 }

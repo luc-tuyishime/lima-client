@@ -12,7 +12,7 @@ const LimaLogo = require('../../assets/images/Logo2.png');
 export class Register extends Component {
    render() {
       return (
-         <div id="element scroll">
+         <div className="select-part" id="element scroll">
             <Grid divided="vertically">
                <Grid.Row columns={2}>
                   <Grid.Column>

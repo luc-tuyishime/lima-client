@@ -6,6 +6,8 @@ import UpdatePasswordPhone from './user/UpdateUsingPhone';
 import RolesPermissions from './admin/RolesPermissions';
 import ManageUsers from './admin/ManageUsers';
 import ViewFarmers from './farmer/ViewFarmers';
+import EditFarmer from './farmer/EditFarmer';
+import CreateFarmer from './farmer/CreateFarmer';
 
 export default [
    Login,
@@ -15,5 +17,7 @@ export default [
    UpdatePasswordPhone,
    RolesPermissions,
    ManageUsers,
-   ViewFarmers
+   ViewFarmers,
+   EditFarmer,
+   CreateFarmer
 ];
