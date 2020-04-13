@@ -2,21 +2,21 @@ import React, { Component } from "react";
 import { Card, Grid, Button, Form, Select, Input } from "semantic-ui-react";
 import SemanticDatepicker from "react-semantic-ui-datepickers";
 
-import { zone } from "../../../helpers/userRegistration/zone";
-import { site } from "../../../helpers/userRegistration/site";
-import { provinces } from "../../../helpers/userRegistration/provinces";
-import { gender } from "../../../helpers/userRegistration/gender.js";
-import { districts } from "../../../helpers/userRegistration/districts";
-import { sectors } from "../../../helpers/userRegistration/sectors";
-import { village } from "../../../helpers/userRegistration/villages";
-import { cell } from "../../../helpers/userRegistration/cell";
+import { zone } from "../../../../helpers/userRegistration/zone";
+import { site } from "../../../../helpers/userRegistration/site";
+import { provinces } from "../../../../helpers/userRegistration/provinces";
+import { gender } from "../../../../helpers/userRegistration/gender.js";
+import { districts } from "../../../../helpers/userRegistration/districts";
+import { sectors } from "../../../../helpers/userRegistration/sectors";
+import { village } from "../../../../helpers/userRegistration/villages";
+import { cell } from "../../../../helpers/userRegistration/cell";
 
-import "../../../assets/css/scroll.scss";
-import "../../../assets/css/table.scss";
-import "../../../assets/css/scroll.scss";
-import "./CreateFarmer.scss";
+import "../../../../assets/css/scroll.scss";
+import "../../../../assets/css/table.scss";
+import "../../../../assets/css/scroll.scss";
+import "./CreateMember.scss";
 
-class CreateFarmerForm extends Component {
+class CreateMemberForm extends Component {
 	state = {
 		file: null,
 	};
@@ -25,7 +25,7 @@ class CreateFarmerForm extends Component {
 
 	fileChange = (e) => {
 		this.setState({ file: e.target.files[0] }, () => {
-			console.log("File chosen --->", this.state.file);
+			console.log("File chosen... --->", this.state.file);
 		});
 	};
 
@@ -35,7 +35,7 @@ class CreateFarmerForm extends Component {
 				<Card.Group className='table-card scroll-style'>
 					<Card fluid>
 						<Card.Content className='header-bg-color'>
-							Farmer's registration form
+							Members registration form
 						</Card.Content>
 						<Form>
 							<Grid>
@@ -198,4 +198,4 @@ class CreateFarmerForm extends Component {
 	}
 }
 
-export default CreateFarmerForm;
+export default CreateMemberForm;

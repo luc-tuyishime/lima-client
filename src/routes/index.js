@@ -8,6 +8,8 @@ import ManageUsers from './admin/ManageUsers';
 import ViewFarmers from './farmer/ViewFarmers';
 import EditFarmer from './farmer/EditFarmer';
 import CreateFarmer from './farmer/CreateFarmer';
+import ViewMembers from './staffAndEnablers/ViewMembers';
+import CreateMember from './staffAndEnablers/CreateMember';
 
 export default [
    Login,
@@ -19,5 +21,7 @@ export default [
    ManageUsers,
    ViewFarmers,
    EditFarmer,
-   CreateFarmer
+   CreateFarmer,
+   ViewMembers,
+   CreateMember
 ];
