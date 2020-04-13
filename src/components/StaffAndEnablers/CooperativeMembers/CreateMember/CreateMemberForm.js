@@ -25,7 +25,7 @@ class CreateMemberForm extends Component {
 
 	fileChange = (e) => {
 		this.setState({ file: e.target.files[0] }, () => {
-			console.log("File chosen --->", this.state.file);
+			console.log("File chosen... --->", this.state.file);
 		});
 	};
 
