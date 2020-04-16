@@ -58,7 +58,7 @@ class UserSidebar extends Component {
                            </Accordion.Content>
                         </Accordion>
                      </Menu.Item>
-                     <Menu.Item as="a">
+                     <Menu.Item>
                         <Icon name="camera" />
                         <Accordion>
                            <Accordion.Title

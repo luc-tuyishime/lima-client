@@ -1,4 +1,4 @@
-import ViewMembers from '../../components/StaffAndEnablers/CooperativeMembers/ViewMembers/ViewMembers';
+import ViewMembers from '../../../components/StaffAndEnablers/CooperativeMembers/ViewMembers/ViewMembers';
 
 export default {
     exact: true,

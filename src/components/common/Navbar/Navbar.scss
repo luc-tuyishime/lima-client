@@ -1,6 +1,7 @@
 $blueText: #45aaf2;
 
 .Navbar {
+	width: 100% !important;
 	.navbar-menu {
 		background-color: #006266 !important;
 	}
@@ -29,12 +30,6 @@ $blueText: #45aaf2;
 		color: white !important;
 	}
 
-	.mini-navbar {
-		width: 100% !important;
-		position: absolute;
-		top: 75px;
-	}
-
 	.mini-menu-margin-text {
 		position: absolute;
 		left: 17%;
@@ -44,4 +39,12 @@ $blueText: #45aaf2;
 		margin: 0 auto;
 		margin-bottom: 10px;
 	}
+   .left-back{
+	   font-size: 13px !important;
+   }
+
+   .mini-navbar{
+	  position: relative;
+	  z-index: 0;
+   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Icon } from "semantic-ui-react";
+import { Link } from 'react-router-dom';
 import UserSidebar from "../../common/Sidebar/Sidebar";
 import Navbar from "../../common/Navbar/Navbar";
 import { MiniNavbar } from "../../common/Navbar/MiniNavbar";
@@ -20,7 +21,7 @@ class CreateFarmer extends Component {
 							<span className='blue-color'>New </span>
 						</>
 					}
-				/>
+				><Link to='/view-farmers'> <Icon name='arrow left' />Back</Link></MiniNavbar>
 				<Grid>
 					<Grid.Column width={3}>
 						<UserSidebar />
