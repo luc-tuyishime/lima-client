@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Grid } from 'semantic-ui-react';
+import { Button, Grid, Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import Btn from '../../../../common/Button/Button';
 
 import '../../../../Register/Register.scss';
 
@@ -19,34 +19,46 @@ class Confirmation extends Component {
    };
 
    render() {
-     console.log(this.props);
+      console.log(this.props);
       return (
-         <div>
-            <h1 className="ui centered">Confirm your Details</h1>
-            <p>
-               Click Confirm if the following details have been correctly
-               entered
-            </p>
-            <Grid divided="vertically">
-               <Grid.Row columns={2}>
-                  <Grid.Column>
-                     <p>One</p>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <p>two</p>
-                  </Grid.Column>
-               </Grid.Row>
-            </Grid>
-            <Button className="back-confirm" onClick={this.back}>
-               Back
-            </Button>
-            <Button
-               className="confirm confirm-last"
-               onClick={this.saveAndContinue}
-            >
-               Register
-            </Button>
-         </div>
+         <Card.Group className='table-card scroll-style'>
+            <Card fluid>
+               <Card.Content className='header-bg-color'>
+                  Organization Registration
+               </Card.Content>
+               <div className="enablers-form-padding">
+                  <div>
+                     <h1 className="ui centered">Confirm your Details</h1>
+                     <p>
+                        Click Confirm if the following details have been correctly
+                        entered
+                     </p>
+                     <Grid divided="vertically">
+                        <Grid.Row columns={2}>
+                           <Grid.Column>
+                              <p>One</p>
+                           </Grid.Column>
+                           <Grid.Column>
+                              <p>two</p>
+                           </Grid.Column>
+                        </Grid.Row>
+                     </Grid>
+                     <Grid>
+                        <Grid.Column floated='left' width={5}>
+                           <Btn className="back-confirm" onClick={this.back}>
+                              BACK
+                           </Btn>
+                        </Grid.Column>
+                        <Grid.Column floated='right' width={5}>
+                           <Btn className="btn-sign-in" onClick={this.saveAndContinue}>
+                              SAVE AND CONTINUE
+                            </Btn>
+                        </Grid.Column>
+                     </Grid>
+                  </div>
+               </div>
+            </Card>
+         </Card.Group>
       );
    }
 }

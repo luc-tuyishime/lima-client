@@ -12,6 +12,7 @@ import ViewMembers from './staffAndEnablers/Members/ViewMembers';
 import CreateMember from './staffAndEnablers/Members/CreateMember';
 import EditMember from './staffAndEnablers/Members/EditMember';
 import CreateEnabler from './staffAndEnablers/Enablers/CreateEnabler';
+import EditEnabler from './staffAndEnablers/Enablers/EditEnabler';
 
 export default [
    Login,
@@ -27,5 +28,6 @@ export default [
    ViewMembers,
    CreateMember,
    EditMember,
-   CreateEnabler
+   CreateEnabler,
+   EditEnabler
 ];
