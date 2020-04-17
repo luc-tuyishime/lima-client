@@ -1,4 +1,4 @@
-import CreateMember from '../../components/StaffAndEnablers/CooperativeMembers/CreateMember/CreateMember';
+import CreateMember from '../../../components/StaffAndEnablers/CooperativeMembers/CreateMember/CreateMember';
 
 export default {
     exact: true,

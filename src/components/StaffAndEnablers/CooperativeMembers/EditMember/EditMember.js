@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Grid, Icon } from 'semantic-ui-react';
 import UserSidebar from '../../../common/Sidebar/Sidebar';
 import Navbar from '../../../common/Navbar/Navbar';
 import { MiniNavbar } from '../../../common/Navbar/MiniNavbar';
-import ViewMembersTable from './ViewMembersTable';
+import EditMemberForms from './EditMemberForm';
 
 import '../../../../assets/css/table.scss';
 
-class ViewMembers extends Component {
+class EditMember extends Component {
     render() {
         return (
             <div className="bg-container">
                 <Navbar />
-                <MiniNavbar home="Home" settings={<><span className="blue-color">Staff & Enablers</span></>}
-                    users={<><span className="blue-color">Enablers</span></>} />
+                <MiniNavbar home="Home" settings={<>Staff & Enablers</>}
+                    users={<><span className="blue-color">Individual</span></>}
+                ><Link to='/view-members'> <Icon name='arrow left' />Back</Link></MiniNavbar>
                 <Grid>
                     <Grid.Column width={3}>
                         <UserSidebar />
                     </Grid.Column>
                     <Grid.Column className="style-role" width={13}>
-                        <ViewMembersTable />
+                        <EditMemberForms />
                     </Grid.Column>
                 </Grid>
             </div>
@@ -27,4 +29,4 @@ class ViewMembers extends Component {
     }
 }
 
-export default ViewMembers;
+export default EditMember;

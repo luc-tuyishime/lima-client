@@ -2,8 +2,16 @@ $padding: 10px 0 10px 0;
 
 
 .Sidebar-content {
+
+    position: fixed;
+    z-index: 1;
+    top: 60px;
+    left: 0;
+    width: 17% !important;
+
     .sidebar-height {
         height: 110vh !important;
+        /* z-index: 1001 !important; */
     }
 
     i {
