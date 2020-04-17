@@ -12,13 +12,13 @@ class CreateEnabler extends Component {
         return (
             <div className="bg-container">
                 <Navbar />
-                <MiniNavbar home="Home" settings={<><span className="blue-color">Staff & Enablers</span></>}
-                    users={<>Enablers</>} new={<><span className="blue-color">New</span></>} />
+                <MiniNavbar home="Home" settings={<>Staff & Enablers</>}
+                    users={<>Enablers</>} other={<><span className="blue-color">New</span></>} />
                 <Grid>
-                    <Grid.Column width={4}>
+                    <Grid.Column width={3}>
                         <UserSidebar />
                     </Grid.Column>
-                    <Grid.Column className="style-role" width={11}>
+                    <Grid.Column className="style-role" width={13}>
                         <MainForm />
                     </Grid.Column>
                 </Grid>
@@ -26,5 +26,5 @@ class CreateEnabler extends Component {
         );
     }
 }
- 
+
 export default CreateEnabler;

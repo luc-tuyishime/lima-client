@@ -207,7 +207,7 @@ class ViewMembersTable extends Component {
                                 <Table.Cell>No</Table.Cell>
                                 <Table.Cell>No</Table.Cell>
                                 <Table.Cell>
-                                    <Popup content='Edit' trigger={<Link to="/edit-member"><Icon color="yellow" name="edit" /></Link>} />
+                                    <Popup content='Edit' trigger={<Link to="/edit-enabler"><Icon color="yellow" name="edit" /></Link>} />
                                     <Popup content='delete' trigger={<Icon onClick={this.show('mini')} color="red" name="trash" />} />
                                 </Table.Cell>
                             </Table.Row>

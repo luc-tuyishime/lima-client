@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Table, Search, Grid, Button, Icon, Popup, Segment, Image, Form } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Grid, Button, Icon, Segment, Image, Form } from 'semantic-ui-react';
 
 import '../../../../assets/css/table.scss';
 import '../../../Farmers/EditFarmer/EditFarmer.scss';
@@ -26,7 +25,7 @@ class EditMemberForms extends Component {
         return (
             <div className="edit-farmer">
                 <div>
-                    <p className="text-farmer-edit">Individual Info</p> 
+                    <p className="text-farmer-edit">Individual Info</p>
                     <Grid columns={2} stretched>
                         <Grid.Row>
                             <Grid.Column id="edit-scroll">
