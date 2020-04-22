@@ -13,6 +13,7 @@ import CreateMember from './staffAndEnablers/Members/CreateMember';
 import EditMember from './staffAndEnablers/Members/EditMember';
 import CreateEnabler from './staffAndEnablers/Enablers/CreateEnabler';
 import EditEnabler from './staffAndEnablers/Enablers/EditEnabler';
+import AvailableStock from './stock/AvailableStock';
 
 export default [
    Login,
@@ -29,5 +30,6 @@ export default [
    CreateMember,
    EditMember,
    CreateEnabler,
-   EditEnabler
+   EditEnabler,
+   AvailableStock
 ];
