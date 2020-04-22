@@ -15,13 +15,16 @@ export default class Navbar extends Component {
 		return (
 			<div className='Navbar'>
 				<div className='navbar-menu'>
-					<Menu secondary>
+					<Menu className="border_bottom" secondary>
 						<div className='div-left'>
 							<Image
 								className='logo-lima'
 								src={LimaLogo}
 								alt='logo'
 							/>
+							<div className="text-bottom">
+								<p className="text-agriculture">Agriculture Digitized</p>
+							</div>
 						</div>
 
 						<Menu.Menu position='right'>

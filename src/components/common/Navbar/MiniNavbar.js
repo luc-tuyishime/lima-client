@@ -8,7 +8,7 @@ import './Navbar.scss';
 export const MiniNavbar = ({ home, settings, users, children, other }) => (
   <Grid>
     <div className="Navbar">
-      <Menu className="mini-navbar" size="mini">
+      <Menu borderless className="mini-navbar" size="mini">
         <Menu.Item className="mini-menu-margin-text">
           <Icon name="home" />
           {home}

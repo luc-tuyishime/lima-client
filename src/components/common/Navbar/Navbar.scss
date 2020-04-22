@@ -7,15 +7,31 @@ $blueText: #45aaf2;
 	}
 
 	.logo-lima {
-		width: 15% !important;
+		width: 18% !important;
 		float: left !important;
 		position: relative;
-		bottom: 12px !important;
+		bottom: 20px !important;
 		left: 35px !important;
 	}
 
-	.div-left {
-		float: left !important;
+	.text-bottom{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+
+	.div-left{
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+	.text-agriculture{
+	 margin-top: 9px;
+	 margin-left: 33px;
+	 font-size: 13.5px;
+	 margin-bottom: 20px;
+	 color: #f3ea21;
+	 font-weight: bold;
 	}
 
 	.bell {
@@ -33,6 +49,7 @@ $blueText: #45aaf2;
 	.mini-menu-margin-text {
 		position: absolute;
 		left: 17%;
+		border-left: 1px solid #eeeeee !important;
 	}
 	.btn-logout {
 		display: block;
