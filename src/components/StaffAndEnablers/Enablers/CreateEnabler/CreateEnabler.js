@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid, Container, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import UserSidebar from '../../../common/Sidebar/Sidebar';
 import Navbar from '../../../common/Navbar/Navbar';
 import { MiniNavbar } from '../../../common/Navbar/MiniNavbar';
@@ -13,7 +14,9 @@ class CreateEnabler extends Component {
             <div className="bg-container">
                 <Navbar />
                 <MiniNavbar home="Home" settings={<>Staff & Enablers</>}
-                    users={<>Enablers</>} other={<><span className="blue-color">New</span></>} />
+                    users={<>Enablers</>} other={<><span className="blue-color">New</span></>} >
+                    <Link to='/view-members'> <Icon name='arrow left' />Back</Link>
+                    </MiniNavbar>
                 <Grid>
                     <Grid.Column width={3}>
                         <UserSidebar />
