@@ -79,7 +79,7 @@ class UserSidebar extends Component {
                            </Accordion.Content>
                         </Accordion>
                      </Menu.Item>
-                     <Menu.Item as="a">
+                     <Menu.Item>
                         <Icon name="camera" />
                         <Accordion>
                            <Accordion.Title
@@ -93,8 +93,9 @@ class UserSidebar extends Component {
                               </div>
                            </Accordion.Title>
                            <Accordion.Content active={activeIndex === 3}>
-                              <p>Lorem 1</p>
-                              <p>Lorem 2</p>
+                              <Link className="link-color" to="/available-stock"><p>All</p></Link> 
+                              <Link className="link-color" to="/operation-stock"><p>Operations</p></Link>
+                              <Link className="link-color" to="/requisition-stock"><p>Requisitions</p></Link>
                            </Accordion.Content>
                         </Accordion>
                      </Menu.Item>
