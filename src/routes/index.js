@@ -14,6 +14,8 @@ import EditMember from './staffAndEnablers/Members/EditMember';
 import CreateEnabler from './staffAndEnablers/Enablers/CreateEnabler';
 import EditEnabler from './staffAndEnablers/Enablers/EditEnabler';
 import AvailableStock from './stock/AvailableStock';
+import OperationStock from './stock/OperationStock';
+import RequisitionStock from './stock/RequisitionStock';
 
 export default [
    Login,
@@ -31,5 +33,7 @@ export default [
    EditMember,
    CreateEnabler,
    EditEnabler,
-   AvailableStock
+   AvailableStock,
+   OperationStock,
+   RequisitionStock
 ];
