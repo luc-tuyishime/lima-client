@@ -95,6 +95,7 @@ class UserSidebar extends Component {
                            <Accordion.Content active={activeIndex === 3}>
                               <Link className="link-color" to="/available-stock"><p>All</p></Link> 
                               <Link className="link-color" to="/operation-stock"><p>Operations</p></Link>
+                              <Link className="link-color" to="/order-stock"><p>Orders</p></Link>
                               <Link className="link-color" to="/requisition-stock"><p>Requisitions</p></Link>
                            </Accordion.Content>
                         </Accordion>
