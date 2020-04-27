@@ -30,7 +30,7 @@ const OrderModal = () => (
 
                 <Table.Body>
                     <Table.Row>
-                        <Table.Cell><Label color='red' horizontal>New</Label></Table.Cell>
+                        <Table.Cell>Equipment</Table.Cell>
                         <Table.Cell>September 14, 2013</Table.Cell>
                         <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
                         <Table.Cell>No</Table.Cell>
@@ -38,7 +38,7 @@ const OrderModal = () => (
                         
                     </Table.Row>
                     <Table.Row>
-                        <Table.Cell><Label color='red' horizontal>New</Label></Table.Cell>
+                        <Table.Cell>Equipment</Table.Cell>
                         <Table.Cell>January 11, 2014</Table.Cell>
                         <Table.Cell>jamieharingonton@yahoo.com</Table.Cell>
                         <Table.Cell>Yes</Table.Cell>
@@ -46,7 +46,7 @@ const OrderModal = () => (
                         
                     </Table.Row>
                     <Table.Row>
-                        <Table.Cell><Label color='red' horizontal>New</Label></Table.Cell>
+                        <Table.Cell>Equipment</Table.Cell>
                         <Table.Cell>May 11, 2014</Table.Cell>
                         <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
                         <Table.Cell>Yes</Table.Cell>
