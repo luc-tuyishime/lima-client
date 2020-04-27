@@ -1,5 +1,6 @@
 .rain {
-  background-color: rgba(255, 255, 255, .5);
+  background-color: #ffffff;
+  opacity: 0.02;
   height: 25px;
   position: absolute;
   z-index: 1 !important;
@@ -12,7 +13,7 @@ $rain: 80;
 @for $i from 1 through $rain {
   $top: (random(50) + 50) * 1%;
   $left: random(83) * 1%;
-  $opacity: (random(30) + 30) * 0.01;
+  $opacity: (random(10) + 10) * 0.02;
   $delay: random(20) - 1s;
 
   .rain:nth-of-type(#{$i}) {
