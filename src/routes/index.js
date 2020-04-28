@@ -16,6 +16,7 @@ import EditEnabler from './staffAndEnablers/Enablers/EditEnabler';
 import AvailableStock from './stock/AvailableStock';
 import OperationStock from './stock/OperationStock';
 import RequisitionStock from './stock/RequisitionStock';
+import OrderStock from './stock/OrderStock';
 
 export default [
    Login,
@@ -35,5 +36,6 @@ export default [
    EditEnabler,
    AvailableStock,
    OperationStock,
-   RequisitionStock
+   RequisitionStock,
+   OrderStock
 ];
