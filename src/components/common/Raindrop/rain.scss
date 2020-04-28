@@ -1,11 +1,21 @@
+$image: "https://t4.ftcdn.net/jpg/03/27/27/79/240_F_327277983_MPB4weR3Zwn66Ici085sxQijznTx3qiF.jpg";
+
+
 .rain {
-  background-color: #ffffff;
-  opacity: 0.02;
-  height: 25px;
+  /*background-color: #ffffff;
+  */background-image:url($image);
+  /*opacity: 0.02;
+  */height: 25px;
   position: absolute;
+  background-position:50%;
   z-index: 1 !important;
   width: 15px;
-  border-radius: 100%;
+  border-radius: 50%;
+  transform:rotate(180deg) rotateY(0);
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 
 $rain: 80;
@@ -13,7 +23,7 @@ $rain: 80;
 @for $i from 1 through $rain {
   $top: (random(50) + 50) * 1%;
   $left: random(83) * 1%;
-  $opacity: (random(10) + 10) * 0.02;
+  $opacity: (random(25) + 25) * 0.02;
   $delay: random(20) - 1s;
 
   .rain:nth-of-type(#{$i}) {
