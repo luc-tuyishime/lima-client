@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Card, Table, Search, Grid, Button, Icon, Popup, Label, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-import OrderModal from './OrderModal';
 import '../../../assets/css/table.scss';
 import './orders.scss';
 
