@@ -17,6 +17,7 @@ import AvailableStock from './stock/AvailableStock';
 import OperationStock from './stock/OperationStock';
 import RequisitionStock from './stock/RequisitionStock';
 import OrderStock from './stock/OrderStock';
+import Dashboard from './dashboard/ViewDashboard';
 
 export default [
    Login,
@@ -37,5 +38,6 @@ export default [
    AvailableStock,
    OperationStock,
    RequisitionStock,
-   OrderStock
+   OrderStock,
+   Dashboard
 ];

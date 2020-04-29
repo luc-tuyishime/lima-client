@@ -31,10 +31,10 @@ class UserSidebar extends Component {
                      vertical
                      visible
                   >
-                     <Menu.Item className="padding-side" as="a">
+                     <Menu.Item className="padding-side">
                         <Icon size="mini" className="icons-style" name="home" />
-                        Dashboard
-              </Menu.Item>
+                        <Link className="link-color" to="/dashboard">Dashboard</Link>
+                      </Menu.Item>
                      <Menu.Item>
                         <Icon name="gamepad" />
                         <Accordion>
