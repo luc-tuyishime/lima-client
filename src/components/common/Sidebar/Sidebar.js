@@ -92,7 +92,7 @@ class UserSidebar extends Component {
                       <Icon className="icon-accordeon" name="dropdown" />
                               </div>
                            </Accordion.Title>
-                           <Accordion.Content active={activeIndex === 3}>
+                           <Accordion.Content className="stock-side-padding" active={activeIndex === 3}>
                               <Link className="link-color" to="/available-stock"><p>All</p></Link> 
                               <Link className="link-color" to="/operation-stock"><p>Operations</p></Link>
                               <Link className="link-color" to="/order-stock"><p>Orders</p></Link>

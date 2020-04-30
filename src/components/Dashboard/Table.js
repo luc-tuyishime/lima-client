@@ -4,7 +4,7 @@ import { Table } from 'semantic-ui-react';
 class TableDashboard extends Component {
     render(){
         return(
-            <Table size="small" collapsing>
+            <Table size="small">
                             <Table.Header>
                                 <Table.Row>
                                     <Table.HeaderCell>First Name</Table.HeaderCell>

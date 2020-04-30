@@ -43,8 +43,8 @@ class AvailableStock extends Component {
         return (
             <div className="bg-container">
                 <Navbar />
-                <MiniNavbar home="Home" settings={<><span className="blue-color">Staff & Enablers</span></>}
-                    users={<><span className="blue-color">Enablers</span></>} />
+                <MiniNavbar home="Home" settings={<><span className="blue-color">Stock</span></>}
+                    users={<><span className="blue-color">All</span></>} />
                 <Grid>
                     <Grid.Column width={3}>
                         <UserSidebar />

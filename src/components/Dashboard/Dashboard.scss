@@ -35,8 +35,24 @@
         height: 700px;
         overflow-y: scroll !important;
         overflow-x: hidden !important;
+        padding-bottom: 40px !important;
 }
 
 .dashboard-padding{
     padding-top: 30px !important;
+}
+
+.chart-pie{
+    padding: 45px 20px !important;
+}
+
+.chart-header{
+    background-color: #82b1ff !important;
+    color: #424242 !important;
+}
+
+.mini-menu-margin-text {
+    position: absolute;
+    left: 17%;
+    border-left: 1px solid #eeeeee !important;
 }
