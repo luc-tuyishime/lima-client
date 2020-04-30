@@ -1,6 +1,5 @@
 import React from "react";
 import { Table, Input, Icon, Form, Select } from 'semantic-ui-react';
-import Btn from '../../common/Button/Button';
 
 const TaskList = ({ taskList, add, deleteRow }) => {
     return (
