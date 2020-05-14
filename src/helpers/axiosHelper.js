@@ -9,8 +9,8 @@ export default (data = {}) => {
    const { token, URL } = data;
    const baseURL =
       URL ||
-      (reactUrl && `${reactUrl}/api/v1`) ||
-      (defaultUrl && `${defaultUrl}/api/v1`);
+      (reactUrl && `${reactUrl}/api`) ||
+      (defaultUrl && `${defaultUrl}/api`);
    const headers = {
       'access-token': token || localStorage.token || undefined,
    };

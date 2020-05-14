@@ -3,6 +3,7 @@ import Register from './user/Register';
 import ForgotPassword from './user/ForgotPassword';
 import UpdatePassword from './user/UpdateUsingPassword';
 import UpdatePasswordPhone from './user/UpdateUsingPhone';
+import ActivateAccount from './user/ActivateAccount';
 import RolesPermissions from './admin/RolesPermissions';
 import ManageUsers from './admin/ManageUsers';
 import ViewFarmers from './farmer/ViewFarmers';
@@ -18,6 +19,10 @@ import OperationStock from './stock/OperationStock';
 import RequisitionStock from './stock/RequisitionStock';
 import OrderStock from './stock/OrderStock';
 import Dashboard from './dashboard/ViewDashboard';
+import ViewPetitCash from './finance/ViewPetitCash';
+import ViewReports  from './finance/ViewReport';
+import ViewApprovals from './finance/ViewApproval';
+import ViewNewOperation from './finance/ViewNewOperation';
 
 export default [
    Login,
@@ -39,5 +44,10 @@ export default [
    OperationStock,
    RequisitionStock,
    OrderStock,
-   Dashboard
+   Dashboard,
+   ViewPetitCash,
+   ViewReports,
+   ViewApprovals,
+   ViewNewOperation,
+   ActivateAccount
 ];

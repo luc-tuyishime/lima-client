@@ -22,8 +22,8 @@ $rain: 80;
 
 @for $i from 1 through $rain {
   $top: (random(50) + 50) * 1%;
-  $left: random(83) * 1%;
-  $opacity: (random(20) + 20) * 0.02;
+  $left: random(95) * 1%;
+  $opacity: (random(23) + 23) * 0.02;
   $delay: random(20) - 1s;
 
   .rain:nth-of-type(#{$i}) {

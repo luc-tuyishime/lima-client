@@ -52,16 +52,18 @@ $blueText: #45aaf2;
 		border-left: 1px solid #eeeeee !important;
 	}
 	.btn-logout {
-		display: block;
-		margin: 0 auto;
-		margin-bottom: 10px;
+		margin-left: '90px' !important;
 	}
    .left-back{
 	   font-size: 13px !important;
    }
+   .data-value{
+	   color:'#2e7d32' !important;
+	   font-weight: bold !important;
+   }
 
-   .mini-navbar{
-	  position: relative;
-	  z-index: 0;
+   .btn-logout{
+	   display: block !important;
+	   margin: 0 auto !important;
    }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import routes from './routes';
 import NotFoundPage from './components/NotFound/Notfound';
@@ -16,6 +18,7 @@ function App({ isAuth }) {
                   protected={route.protected}
                   role={route.role}
                   render={(props) => {
+                   if (route.protected && !isAuth) return <Redirect to="/" />
                      document.title = route.name;
                      return (
                         <route.component
@@ -40,4 +43,10 @@ App.propTypes = {
    match: PropTypes.string,
 };
 
-export default App;
+export const mapStateToProps = ({
+   user: {
+      isAuth
+   }
+}) => ({ isAuth });
+
+export default connect(mapStateToProps)(App);

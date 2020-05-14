@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Btn from '../common/Button/Button';
 import RaindropImage from '../common/Raindrop/Raindrop';
 
-import MainForm from './MultiStepForms/mainForm';
+import UserFirstDetails from './MultiStepForms/UserFirstDetails';
 import './Register.scss';
 
 const LimaLogo = require('../../assets/images/Logo2.png');
@@ -32,11 +32,11 @@ export class Register extends Component {
                         <p className="text-lima">Agriculture Digitized</p>
                         <p className="register-text">Register</p>
                         <Grid>
-                           <Grid.Column width={3} />
-                           <Grid.Column width={10}>
-                              <MainForm />
+                           <Grid.Column width={2} />
+                           <Grid.Column width={12}>
+                              <UserFirstDetails />
                            </Grid.Column>
-                           <Grid.Column width={3} />
+                           <Grid.Column width={2} />
                         </Grid>
                      </div>
                   </Grid.Column>
