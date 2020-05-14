@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Menu, Image, Icon, Dropdown, Button } from "semantic-ui-react";
+import { connect } from 'react-redux';
+import { logout } from '../../../actions/user';
 import "./Navbar.scss";
 
 const LimaLogo = require("../../../assets/images/Logo2.png");
@@ -10,8 +12,16 @@ const trigger = (
 	</span>
 );
 
-export default class Navbar extends Component {
+class Navbar extends Component {
+
+	 logout = (e) => {
+        e.preventDefault();
+        const { logout } = this.props;
+        logout();
+    };
+
 	render() {
+		const { authorities, name } = this.props;
 		return (
 			<div className='Navbar'>
 				<div className='navbar-menu'>
@@ -31,20 +41,24 @@ export default class Navbar extends Component {
 							<Menu.Item>
 								<Dropdown trigger={trigger}>
 									<Dropdown.Menu>
-										<Dropdown.Item text='First name' />
-										<Dropdown.Item text='Lastname' />
-										<Dropdown.Item text='Role' />
-										<Dropdown.Item text='Cooperative name' />
+										<Dropdown.Item>Name : <span style={{ color: '#2e7d32', fontWeight: 'bold'}}>
+										 {name}</span></Dropdown.Item>
+										<Dropdown.Item>Role : <span style={{ color: '#2e7d32', fontWeight: 'bold'}}>
+										{authorities[0].authority}</span></Dropdown.Item>
 										<Dropdown.Divider />
 										<Dropdown.Item
 											icon='wrench'
 											text='Manage your account'
 										/>
-										<Dropdown.Divider />
-										<Button primary className='btn-logout'>
-											<Icon name='sign out' /> Log Out
-										</Button>
-									</Dropdown.Menu>
+									 <Dropdown.Divider />
+											<Menu.Item
+											name='logout'
+											onClick={this.logout}
+											to="/"
+											>
+											<Button className="btn-logout" primary>Logout</Button>
+											</Menu.Item>
+									  </Dropdown.Menu>
 								</Dropdown>
 							</Menu.Item>
 							<Menu.Item>
@@ -60,3 +74,14 @@ export default class Navbar extends Component {
 		);
 	}
 }
+
+const mapStateToProps = ({
+    user: {
+        profile: { authorities, name }
+    }
+}) => ({
+    authorities,
+	name
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);

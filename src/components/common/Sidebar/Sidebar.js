@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Icon, Menu, Segment, Sidebar, Accordion } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { ReactComponent as Logo } from '../../../assets/images/money.svg';
+import { ReactComponent as Logo2 } from '../../../assets/images/line.svg';
+import { ReactComponent as Logo3 } from '../../../assets/images/message.svg';
 
 import "./Sidebar.scss";
 
@@ -32,11 +35,11 @@ class UserSidebar extends Component {
                      visible
                   >
                      <Menu.Item className="padding-side">
-                        <Icon size="mini" className="icons-style" name="home" />
+                        <Icon size="mini" className="icons-style" name="dashboard" />
                         <Link className="link-color" to="/dashboard">Dashboard</Link>
                       </Menu.Item>
                      <Menu.Item>
-                        <Icon name="gamepad" />
+                        <Icon name="user outline" />
                         <Accordion>
                            <Accordion.Title
                               active={activeIndex === 0}
@@ -59,7 +62,7 @@ class UserSidebar extends Component {
                         </Accordion>
                      </Menu.Item>
                      <Menu.Item>
-                        <Icon name="camera" />
+                        <Icon name="group" />
                         <Accordion>
                            <Accordion.Title
                               active={activeIndex === 2}
@@ -80,7 +83,7 @@ class UserSidebar extends Component {
                         </Accordion>
                      </Menu.Item>
                      <Menu.Item>
-                        <Icon name="camera" />
+                        <Logo2 style={{ float: 'left' }} />
                         <Accordion>
                            <Accordion.Title
                               active={activeIndex === 3}
@@ -101,7 +104,7 @@ class UserSidebar extends Component {
                         </Accordion>
                      </Menu.Item>
                      <Menu.Item>
-                        <Icon name="camera" />
+                        <Logo style={{ float: 'left',  }}/>
                         <Accordion>
                            <Accordion.Title
                               active={activeIndex === 4}
@@ -113,14 +116,16 @@ class UserSidebar extends Component {
                       <Icon className="icon-accordeon" name="dropdown" />
                               </div>
                            </Accordion.Title>
-                           <Accordion.Content active={activeIndex === 4}>
-                              <p>Lorem 1</p>
-                              <p>Lorem 2</p>
+                           <Accordion.Content className="stock-side-padding"  active={activeIndex === 4}>
+                            <Link className="link-color" to="/finance/NewOperation"><p>New operation</p></Link>
+                              <Link className="link-color" to="/finance/petitCash"><p>Petit Cash</p></Link>
+                              <Link className="link-color" to="/finance/reports"><p>Reports</p></Link> 
+                              <Link className="link-color" to="/finance/approvals"><p>Approvals</p></Link>
                            </Accordion.Content>
                         </Accordion>
                      </Menu.Item>
                      <Menu.Item>
-                        <Icon name="camera" />
+                        <Logo3 style={{ float: 'left' }} />
                         <Accordion>
                            <Accordion.Title
                               active={activeIndex === 5}
@@ -139,7 +144,7 @@ class UserSidebar extends Component {
                         </Accordion>
                      </Menu.Item>
                      <Menu.Item>
-                        <Icon name="camera" />
+                        <Icon name="setting" />
                         <Accordion>
                            <Accordion.Title
                               active={activeIndex === 6}

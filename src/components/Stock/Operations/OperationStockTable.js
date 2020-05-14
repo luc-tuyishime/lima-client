@@ -3,6 +3,7 @@ import {Card, Grid, Search, Button, Icon, Form, Radio, Table } from 'semantic-ui
 import { Link } from 'react-router-dom';
 import SemanticDatepicker from "react-semantic-ui-datepickers";
 
+
 import './operation.scss';
 
 class OperationStockTable extends Component {
@@ -26,7 +27,7 @@ class OperationStockTable extends Component {
                                                 placeholder="To"
 												name='birth'
 											/>
-                                            <Form.Button primary className="btn-search"><Icon name='search' />Search</Form.Button>
+                                            <Form.Button primary className="btn-search">Search</Form.Button>
                                         </Form.Group>
                                         </Form>
                                 </Grid.Column>

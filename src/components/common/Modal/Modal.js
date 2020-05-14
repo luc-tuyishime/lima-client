@@ -1,12 +1,11 @@
 import { React } from 'react';
 import { Modal } from 'semantic-ui-react';
 
-const ReusableModal = ({ children }) => {
-    return(
-          <Modal>
+const ReusableModal = ({ children }) => (
+          <div>
            {children}
-        </Modal>
+        </div>
     )
-}
+
 
 export default ReusableModal
