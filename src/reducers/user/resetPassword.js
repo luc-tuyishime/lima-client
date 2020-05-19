@@ -23,7 +23,7 @@ export default (state, { type, payload }) => {
                 resetPassword: {
                     loading: false,
                     message: '',
-                    errors: { message: payload.errors || payload.message }
+                    errors:  payload.message 
                 }
             };
         default:

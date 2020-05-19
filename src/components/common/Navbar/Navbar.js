@@ -14,11 +14,11 @@ const trigger = (
 
 class Navbar extends Component {
 
-	 logout = (e) => {
-        e.preventDefault();
-        const { logout } = this.props;
-        logout();
-    };
+	logout = (e) => {
+		e.preventDefault();
+		localStorage.clear();
+		window.location.replace('/');
+	};
 
 	render() {
 		const { authorities, name } = this.props;
@@ -41,24 +41,24 @@ class Navbar extends Component {
 							<Menu.Item>
 								<Dropdown trigger={trigger}>
 									<Dropdown.Menu>
-										<Dropdown.Item>Name : <span style={{ color: '#2e7d32', fontWeight: 'bold'}}>
-										 {name}</span></Dropdown.Item>
-										<Dropdown.Item>Role : <span style={{ color: '#2e7d32', fontWeight: 'bold'}}>
-										{authorities[0].authority}</span></Dropdown.Item>
+										<Dropdown.Item>Name : <span style={{ color: '#2e7d32', fontWeight: 'bold' }}>
+											{name}</span></Dropdown.Item>
+										<Dropdown.Item>Role : <span style={{ color: '#2e7d32', fontWeight: 'bold' }}>
+											{authorities[0].authority}</span></Dropdown.Item>
 										<Dropdown.Divider />
 										<Dropdown.Item
 											icon='wrench'
 											text='Manage your account'
 										/>
-									 <Dropdown.Divider />
-											<Menu.Item
+										<Dropdown.Divider />
+										<Menu.Item
 											name='logout'
 											onClick={this.logout}
 											to="/"
-											>
+										>
 											<Button className="btn-logout" primary>Logout</Button>
-											</Menu.Item>
-									  </Dropdown.Menu>
+										</Menu.Item>
+									</Dropdown.Menu>
 								</Dropdown>
 							</Menu.Item>
 							<Menu.Item>
@@ -76,11 +76,11 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = ({
-    user: {
-        profile: { authorities, name }
-    }
+	user: {
+		profile: { authorities, name }
+	}
 }) => ({
-    authorities,
+	authorities,
 	name
 });
 

@@ -15,14 +15,16 @@ export default (state = initialState, action) => {
     const activate = activateUser(state, action);
     const login = loginUser(state, action);
     // const logout = logoutReducer(state, action);
-    // const forgot = forgotPassword(state, action);
-    // const reset = resetPassword(state, action);
+    const forgot = forgotPassword(state, action);
+    const reset = resetPassword(state, action);
 
     return (
         clearUserStore
         || create
         || activate
         || login
+        || forgot
+        || reset
         || state
     );
 };
