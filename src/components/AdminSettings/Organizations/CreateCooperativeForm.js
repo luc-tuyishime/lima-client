@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Card, Table, Icon, Form, Select } from 'semantic-ui-react';
+import { ToastContainer, toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getProvinces, getDistrictByProvinces, getSectorsByDistricts } from '../../../actions/cooperative';
+import { getProvinces, getDistrictByProvinces, 
+getSectorsByDistricts, getCellsBySectors, 
+getVillagesByCell, createCooperative } from '../../../actions/cooperative';
+import { mapValues } from '../../../helpers/mapValues';
 
 import Btn from '../../common/Button/Button';
 import '../../../assets/css/table.scss';
@@ -11,16 +15,28 @@ class CreateOrganizationForm extends Component {
 
     state = {
         form: {
+        name: '',
         province: '',
         districtByProvince: '',
-        sectors: ''
+        sectors: '',
+        cells: '',
+        cooperativeVillageId: '',
+        contactPersonName: '',
+        contactPersonNationalId: '',
+        contactPhone: '',
+        licenseNumber: '',
+        contactEmail: '',
+        password: ''
       },
       provinces: [],
       districtsByProvinces: [],
       sectorsByDistricts: [],
+      cellsBySectors: [],
+      villagesByCell: [],
       errors: {},
       loadingProvinces: false,
       loadingSectorsByDistricts: false,
+      loadingCellsBySectors: false,
       loading: false,
       message: '',
       key: ''
@@ -33,96 +49,103 @@ class CreateOrganizationForm extends Component {
     };
 
   getLocations = (data, key) => {
-    const { getDistrictByProvinces, getSectorsByDistricts } = this.props;
+    const { getDistrictByProvinces, getSectorsByDistricts, 
+    getCellsBySectors, getVillagesByCell } = this.props;
     if (data.name === 'province') {
-      console.log('gere', key);
       return getDistrictByProvinces(key);
     }
     if (data.name === 'districtByProvince') {
-      console.log('gere', key);
       return getSectorsByDistricts(key);
+    }
+    if (data.name === 'sectors') {
+      return getCellsBySectors(key);
+    }
+    if (data.name === 'cells') {
+      return getVillagesByCell(key);
     }
   };
 
     handleChange = (_, data) => {
-      const { getDistrictByProvinces, getSectorsByDistricts } = this.props;
-      const { key } = data.options.find((e) => e.text === data.value);
- 
+        console.log('data', data);
+       if(data.options){
+            const { key } = data.options.find((e) => e.value === data.value);
+            this.getLocations(data, key);
+        }
+      
       const { form, errors } = this.state;
       this.setState({
          form: { ...form, [data.name]: data.value },
          errors: { ...errors, [data.name]: null },
          loading: false,
-         message: '',
-         key: key
+         message: ''
       });
-      
-      this.getLocations(data, key);
    };
 
     UNSAFE_componentWillReceiveProps = (nextProps) => {
-        console.log('nextProps', nextProps);
+        const alertMessage = (nextProps.messageCooperative && toast.success('Cooperative created, thank you..'))
+              || (nextProps.errorsCooperative && toast.error(nextProps.errorsCooperative));
+        const cellsLoading = nextProps && nextProps.fetchCellsBySectors;
         this.setState({
             loadingProvinces: nextProps.loading,
             loading: nextProps.loadingDistrictsByProvinces,
             loadingSectorsByDistricts: nextProps.loadingSectorsByDistricts,
+            loadingCellsBySectors: cellsLoading && cellsLoading.loading,
             provinces: nextProps.listOfProvinces,
             districtsByProvinces: nextProps.listOfDistrictsByProvinces,
-            sectorsByDistricts: nextProps.listOfSectorsByDistricts
+            sectorsByDistricts: nextProps.listOfSectorsByDistricts,
+            cellsBySectors: nextProps.listOfCellsBySectors,
+            villagesByCell: nextProps.listOfVillagesByCell
         });
          
-        return this.setState;
+        return this.setState && alertMessage;
     };
 
+     handleSubmit = (e) => {
+      e.preventDefault();
+      const { createCooperative } = this.props;
+      const { errors, form } = this.state;
+      const { ...formData } = form;
+    //   const formErrors = validateLima(form, 'newUser');
+
+      this.setState({ errors: { ...errors } });
+
+    //   if (!Object.keys(formErrors).length) {
+    //      createUser(formData);
+    //   }
+    createCooperative(formData)
+   };
+
     render() {
-        const { form, key, loading, loadingProvinces, sectorsByDistricts,
-         provinces, districtsByProvinces, loadingSectorsByDistricts } = this.state;
+        const { loadingCooperative } = this.props;
+        const { form, errors, key, loading, loadingProvinces, sectorsByDistricts,
+         provinces, districtsByProvinces, loadingSectorsByDistricts, 
+         loadingCellsBySectors, cellsBySectors, villagesByCell } = this.state;
 
-        // Provinces
-        const names = provinces.map((name) => {
-           return {
-               key: name.id,
-               text: name.name,
-               value: name.name
-           }
-        })
-
-        // District by Provinces 
-         const districtByProvince = districtsByProvinces.map((name) => {
-           return {
-               key: name.id,
-               text: name.name,
-               value: name.name
-           }
-        })
-
-         // District by Provinces 
-         const sectorByDistricts = sectorsByDistricts.map((name) => {
-           return {
-               key: name.id,
-               text: name.name,
-               value: name.name
-           }
-        })
+        const names = provinces.map(mapValues)
+         const districtByProvince = districtsByProvinces.map(mapValues);
+         const sectorByDistricts = sectorsByDistricts.map(mapValues);
+         const cellBySectors = cellsBySectors && cellsBySectors.map(mapValues); 
+         const villageByCell = villagesByCell && villagesByCell.map(mapValues);
 
         return (
-            <>
+            <div>
+            <ToastContainer position={toast.POSITION.TOP_RIGHT} />
                 <Card.Group className="table-card">
                     <Card fluid>
                         <Card.Content className="header-bg-color">
                             Create Cooperative
                   </Card.Content>
                         <Card.Content>
-                            <Form>
+                            <Form onSubmit={this.handleSubmit}>
                                 <Form.Group widths='equal'>
                                     <Form.Input
                                         label="Cooperative Name"
                                         placeholder="Cooperative Name...."
-                                        name="CooperativeName"
+                                        name="name"
                                         type="text"
-                                    // onChange={this.handleChange}
-                                    // value={form.email || ""}
-                                    // error={errors.email}
+                                        onChange={this.handleChange}
+                                        value={form.name || ""}
+                                        error={errors.name}
                                     />
                                     <Form.Field
                                         loading={loadingProvinces}
@@ -134,7 +157,7 @@ class CreateOrganizationForm extends Component {
                                         placeholder="Select province"
                                         name="province"
                                         value={form.province || ""}
-                                    // error={errors.gender}
+                                        error={errors.province}
                                     />
                                 </Form.Group>
                                 <Form.Group widths='equal'>
@@ -148,7 +171,7 @@ class CreateOrganizationForm extends Component {
                                         placeholder="Select district"
                                         name="districtByProvince"
                                         value={form.districtByProvince || ""}
-                                    // error={errors.gender}
+                                        error={errors.districtByProvince}
                                     />
                                     <Form.Field
                                         loading={loadingSectorsByDistricts}
@@ -160,31 +183,32 @@ class CreateOrganizationForm extends Component {
                                         placeholder="Select sector"
                                         name="sectors"
                                         value={form.sectors || ""}
-                                    // error={errors.gender}
+                                        error={errors.sectors}
                                     />
                                 </Form.Group>
                                 <Form.Group widths='equal'>
                                     <Form.Field
+                                        loading={loadingCellsBySectors}
                                         id="select"
                                         control={Select}
                                         label="Cell"
-                                        // onChange={this.handleChange}
-                                        // options={gender}
+                                        onChange={this.handleChange}
+                                        options={cellBySectors}
                                         placeholder="Select sell"
-                                        name="cell"
-                                    // value={form.gender || ""}
-                                    // error={errors.gender}
+                                        name="cells"
+                                        value={form.cells || ""}
+                                        error={errors.cells}
                                     />
                                     <Form.Field
                                         id="select"
                                         control={Select}
                                         label="village"
-                                        // onChange={this.handleChange}
-                                        // options={gender}
-                                        placeholder="Village"
-                                        name="village"
-                                    // value={form.gender || ""}
-                                    // error={errors.gender}
+                                        onChange={this.handleChange}
+                                        options={villageByCell}
+                                        placeholder="Village Id"
+                                        name="cooperativeVillageId"
+                                        value={form.cooperativeVillageId || ""}
+                                        error={errors.cooperativeVillageId}
                                     />
                                 </Form.Group>
 
@@ -194,62 +218,62 @@ class CreateOrganizationForm extends Component {
                                         placeholder="contact person name"
                                         name="contactPersonName"
                                         type="text"
-                                    // onChange={this.handleChange}
-                                    // value={form.password || ""}
-                                    // error={errors.password}
+                                        onChange={this.handleChange}
+                                        value={form.contactPersonName || ""}
+                                        error={errors.contactPersonName}
                                     />
                                     <Form.Input
                                         label="Contact Person National ID"
                                         placeholder="Contact person national ID"
-                                        name="cpnID"
+                                        name="contactPersonNationalId"
                                         type="text"
-                                    // onChange={this.handleChange}
-                                    // value={form.password || ""}
-                                    // error={errors.password}
+                                        onChange={this.handleChange}
+                                        value={form.contactPersonNationalId || ""}
+                                        error={errors.contactPersonNationalId}
                                     />
                                 </Form.Group>
                                 <Form.Group widths='equal'>
                                     <Form.Input
                                         label="Contact Phone"
                                         placeholder="phone"
-                                        name="phone"
+                                        name="contactPhone"
                                         type="text"
-                                    // onChange={this.handleChange}
-                                    // value={form.password || ""}
-                                    // error={errors.password}
+                                        onChange={this.handleChange}
+                                        value={form.contactPhone || ""}
+                                        error={errors.contactPhone}
                                     />
                                     <Form.Input
                                         label="License Number"
                                         placeholder="License number"
                                         name="licenseNumber"
                                         type="text"
-                                    // onChange={this.handleChange}
-                                    // value={form.password || ""}
-                                    // error={errors.password}
+                                        onChange={this.handleChange}
+                                        value={form.licenseNumber || ""}
+                                        error={errors.licenseNumber}
                                     />
                                 </Form.Group>
                                 <Form.Group widths='equal'>
                                     <Form.Input
                                         label="Contact Person Email"
                                         placeholder="contact person email"
-                                        name="contactPersonEmail"
-                                        type="text"
-                                    // onChange={this.handleChange}
-                                    // value={form.password || ""}
-                                    // error={errors.password}
+                                        name="contactEmail"
+                                        type="email"
+                                        onChange={this.handleChange}
+                                        value={form.contactEmail || ""}
+                                        error={errors.contactEmail}
                                     />
                                     <Form.Input
                                         label="Password"
                                         placeholder="password"
                                         name="password"
                                         type="password"
-                                    // onChange={this.handleChange}
-                                    // value={form.password || ""}
-                                    // error={errors.password}
+                                        onChange={this.handleChange}
+                                        value={form.password || ""}
+                                        error={errors.password}
                                     />
                                 </Form.Group>
 
-                                <Btn type="submit" className="btn-sign-in" primary>
+                                <Btn type="submit" className="btn-sign-in" primary loading={loadingCooperative}>
                                     CREATE
                                </Btn>
                             </Form>
@@ -257,7 +281,7 @@ class CreateOrganizationForm extends Component {
                     </Card>
                 </Card.Group>
                 <p id="footer-content">Copyright &copy; MAHWI Tech Ltd</p>
-            </>
+            </div>
         );
     }
 }
@@ -269,23 +293,38 @@ const mapStateToProps = ({
         fetchProvinces: { loading, message, errors }, 
         listOfDistrictsByProvinces,
         listOfSectorsByDistricts,
+        listOfCellsBySectors,
+        listOfVillagesByCell,
         fetchDistrictsByProvinces: {
             loading: loadingDistrictsByProvinces
         },
         fetchSectorsByDistricts: {
             loading: loadingSectorsByDistricts
+        },
+        fetchCellsBySectors,
+        createCooperative: {
+            loading: loadingCooperative,
+            message: messageCooperative,
+            errors: errorsCooperative
         }
         }}) => ({
         listOfProvinces,
         listOfDistrictsByProvinces,
         listOfSectorsByDistricts,
+        listOfCellsBySectors,
+        listOfVillagesByCell,
         profile,
         loading,
         message,
         errors,
         loadingDistrictsByProvinces,
-        loadingSectorsByDistricts
+        loadingSectorsByDistricts,
+        fetchCellsBySectors,
+        loadingCooperative,
+        messageCooperative,
+        errorsCooperative
     });
 
 export default connect(mapStateToProps, 
-{ getProvinces, getDistrictByProvinces, getSectorsByDistricts })(CreateOrganizationForm);
+{ getProvinces, getDistrictByProvinces, getSectorsByDistricts, 
+getCellsBySectors, getVillagesByCell, createCooperative })(CreateOrganizationForm);

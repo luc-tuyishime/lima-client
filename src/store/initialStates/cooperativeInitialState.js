@@ -17,6 +17,18 @@ module.exports = {
         message: '',
         errors: {}
     },
+    listOfCellsBySectors: [],
+    fetchCellsBySectors: {
+        loading: false,
+        message: '',
+        errors: {}
+    },
+    listOfVillagesByCell: [],
+    fetchVillagesByCell: {
+        loading: false,
+        message: '',
+        errors: {}
+    },
     createCooperative: {
         loading: false,
         message: '',
