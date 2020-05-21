@@ -20,16 +20,27 @@ export class Login extends Component {
     },
     errors: {},
     loading: false,
-    message: ''
+    message: '',
+    newRole: ''
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log('next props ==>>>', nextProps);
+    console.log(nextProps);
+    const { profile } = nextProps;
+    const { authorities } = profile;
+    const result = authorities;
+    const result2 = result && result.map(obj => {
+      return obj.authority
+    })
+
     if (nextProps.message && nextProps.message.includes('signIn successfully')) {
-        this.props.history.push('/dashboard');
+      this.props.history.push('/dashboard');
     }
     const { errors } = this.state;
-    this.setState({ errors: { ...errors, ...nextProps.errors } });
+    this.setState({
+      errors: { ...errors, ...nextProps.errors },
+      newRole: result2
+    });
   }
 
   handleChange = (e) => {
@@ -44,7 +55,6 @@ export class Login extends Component {
 
   handeleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.props);
     const { form, errors } = this.state;
     const { login } = this.props;
     const { ...formData } = form;
@@ -58,11 +68,12 @@ export class Login extends Component {
   };
 
   render() {
+    const { newRole } = this.state;
     const { loading, profile } = this.props;
     const { form, errors } = this.state;
     return (
       <div className="select-part" id="element">
-      {!loading && Object.keys(profile).length ? <Redirect to='/dashboard' /> : ''}
+        {!loading && Object.keys(profile).length ? <Redirect to='/dashboard' /> : ''}
         <Grid divided="vertically">
           <Grid.Row columns={2}>
             <Grid.Column>
@@ -76,13 +87,21 @@ export class Login extends Component {
               <div>
                 <Image className="logo-lima" src={LimaLogo} alt="logo" />
                 <p className="text-lima">Agriculture Digitized</p>
+
+                {(errors[0]) ? (
+                <Grid centered columns={2}>
+                <Grid.Column>
+                <Message color='red'>
+                  <p className="message-text">Sorry! Bad credentials</p>
+                </Message>
+                </Grid.Column>
+                </Grid> ) : 
+                !loading && newRole.includes('ROLE_ADMIN') ? 
+                <Redirect to='/organization' /> : ''
+                }
+
                 <p className="login-text">LOGIN</p>
                 <Grid centered columns={2}>
-                {(errors[0]) && (
-                  <Message color='red'>
-                      <p>Sorry! You are not authorized to access this resource. Bad credentials</p>
-                  </Message>
-                 )}
                   <Grid.Column>
                     <Form onSubmit={this.handeleSubmit}>
                       <Form.Group widths='equal'>

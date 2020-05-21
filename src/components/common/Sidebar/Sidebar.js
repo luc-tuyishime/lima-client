@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Icon, Menu, Segment, Sidebar, Accordion } from "semantic-ui-react";
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from '../../../assets/images/money.svg';
 import { ReactComponent as Logo2 } from '../../../assets/images/line.svg';
@@ -21,6 +22,7 @@ class UserSidebar extends Component {
    };
 
    render() {
+      const { isAuth, authorities } = this.props;
       const { activeIndex } = this.state;
       return (
          <div className=" Sidebar-content">
@@ -34,11 +36,14 @@ class UserSidebar extends Component {
                      vertical
                      visible
                   >
+                     {(isAuth && authorities[0].authority.includes('ROLE_ADMIN')) ? 
+                     '' : 
                      <Menu.Item className="padding-side">
                         <Icon size="mini" className="icons-style" name="dashboard" />
                         <Link className="link-color" to="/dashboard">Dashboard</Link>
-                      </Menu.Item>
-                     <Menu.Item>
+                      </Menu.Item>}
+                     {(isAuth && authorities[0].authority.includes('ROLE_ADMIN')) ? 
+                     '' : <Menu.Item>
                         <Icon name="user outline" />
                         <Accordion>
                            <Accordion.Title
@@ -60,8 +65,9 @@ class UserSidebar extends Component {
                               </Link>
                            </Accordion.Content>
                         </Accordion>
-                     </Menu.Item>
-                     <Menu.Item>
+                     </Menu.Item> }
+                     {(isAuth && authorities[0].authority.includes('ROLE_ADMIN')) ?
+                     '' : <Menu.Item>
                         <Icon name="group" />
                         <Accordion>
                            <Accordion.Title
@@ -81,8 +87,9 @@ class UserSidebar extends Component {
                               <p>Lorem 2</p>
                            </Accordion.Content>
                         </Accordion>
-                     </Menu.Item>
-                     <Menu.Item>
+                     </Menu.Item> }
+                     {(isAuth && authorities[0].authority.includes('ROLE_ADMIN')) ?
+                     '' : <Menu.Item>
                         <Logo2 style={{ float: 'left' }} />
                         <Accordion>
                            <Accordion.Title
@@ -102,8 +109,9 @@ class UserSidebar extends Component {
                               <Link className="link-color" to="/requisition-stock"><p>Requisitions</p></Link>
                            </Accordion.Content>
                         </Accordion>
-                     </Menu.Item>
-                     <Menu.Item>
+                     </Menu.Item> }
+                     {(isAuth && authorities[0].authority.includes('ROLE_ADMIN')) ?
+                     '' : <Menu.Item>
                         <Logo style={{ float: 'left',  }}/>
                         <Accordion>
                            <Accordion.Title
@@ -123,8 +131,9 @@ class UserSidebar extends Component {
                               <Link className="link-color" to="/finance/approvals"><p>Approvals</p></Link>
                            </Accordion.Content>
                         </Accordion>
-                     </Menu.Item>
-                     <Menu.Item>
+                     </Menu.Item> }
+                     {(isAuth && authorities[0].authority.includes('ROLE_ADMIN')) ?
+                     '' : <Menu.Item>
                         <Logo3 style={{ float: 'left' }} />
                         <Accordion>
                            <Accordion.Title
@@ -142,7 +151,8 @@ class UserSidebar extends Component {
                               <p>Lorem 2</p>
                            </Accordion.Content>
                         </Accordion>
-                     </Menu.Item>
+                     </Menu.Item> }
+                     {(isAuth && authorities[0].authority.includes('ROLE_ADMIN')) ? 
                      <Menu.Item>
                         <Icon name="setting" />
                         <Accordion>
@@ -163,9 +173,12 @@ class UserSidebar extends Component {
                               <Link className="link-color" to="/manage-users">
                                  <p className="text-side">Manage Users</p>
                               </Link>
+                              <Link className="link-color" to="/organization">
+                                 <p className="text-side">Create Organization</p>
+                              </Link>
                            </Accordion.Content>
                         </Accordion>
-                     </Menu.Item>
+                     </Menu.Item> : ''}
                   </Sidebar>
                   <Sidebar.Pusher>
                      <Segment basic />
@@ -177,4 +190,15 @@ class UserSidebar extends Component {
    }
 }
 
-export default UserSidebar;
+const mapStateToProps = ({
+	user: {
+      isAuth,
+		profile: { authorities, name }
+	}
+}) => ({
+   isAuth,
+	authorities,
+	name
+});
+
+export default connect(mapStateToProps)(UserSidebar);

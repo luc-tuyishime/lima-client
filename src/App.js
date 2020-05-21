@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import routes from './routes';
 import NotFoundPage from './components/NotFound/Notfound';
+import ViewCreateOrganization from './components/AdminSettings/Organizations/ViewCreateOrganization';
 
 function App({ isAuth }) {
+
    return (
       <Router>
          <Switch>
@@ -18,7 +20,7 @@ function App({ isAuth }) {
                   protected={route.protected}
                   role={route.role}
                   render={(props) => {
-                   if (route.protected && !isAuth) return <Redirect to="/" />
+                     if (route.protected && !isAuth) return <Redirect to="/" />
                      document.title = route.name;
                      return (
                         <route.component
@@ -45,8 +47,9 @@ App.propTypes = {
 
 export const mapStateToProps = ({
    user: {
-      isAuth
+      isAuth,
+      profile: { authorities }
    }
-}) => ({ isAuth });
+}) => ({ isAuth, authorities });
 
 export default connect(mapStateToProps)(App);

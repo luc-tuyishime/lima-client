@@ -2,13 +2,15 @@ import Joi from 'joi-browser';
 import newUser from './schemas/newUser';
 import activateAccount from './schemas/activateAccount';
 import loginUser from './schemas/loginUser';
+import updatePassword from './schemas/updatePassword';
 
 export default (inputs, schema) => {
     const errors = {};
     const validateSchemas = {
         newUser,
         activateAccount,
-        loginUser
+        loginUser,
+        updatePassword
     };
     const { error } = Joi.validate(inputs, validateSchemas[schema], { abortEarly: false });
 
