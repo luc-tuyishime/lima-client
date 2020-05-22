@@ -107,6 +107,7 @@ class UserSidebar extends Component {
                               <Link className="link-color" to="/operation-stock"><p>Operations</p></Link>
                               <Link className="link-color" to="/order-stock"><p>Orders</p></Link>
                               <Link className="link-color" to="/requisition-stock"><p>Requisitions</p></Link>
+                              <Link className="link-color" to="/pending-approvals"><p>Pending Approvals</p></Link>
                            </Accordion.Content>
                         </Accordion>
                      </Menu.Item> }

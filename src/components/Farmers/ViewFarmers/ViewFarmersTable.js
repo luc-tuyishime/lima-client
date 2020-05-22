@@ -1,11 +1,49 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
-import { Card, Table, Search, Grid, Button, Icon, Popup } from 'semantic-ui-react';
+import { Card, Table, Search, Grid, Button, Icon, Popup, Message, Pagination } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
+import { getFarmers } from '../../../actions/farmer';
 
 import '../../../assets/css/table.scss';
 
 class ViewFarmersTable extends Component {
+    
+    state = {
+        page: 1,
+        itemsPerPage: 7,
+        farmers: []
+    }
+
+    componentDidMount = () => {
+        const { getFarmers } = this.props;
+        getFarmers();
+    };
+
+    setPageNum = (event, { activePage }) => {
+        this.setState({ page: activePage });
+    };
+
+     UNSAFE_componentWillReceiveProps = (nextProps) => {
+         console.log('nextProps', nextProps);
+        this.setState({
+            farmers: nextProps.listOfFarmers
+        });
+
+        return this.setState;
+    };
+
     render() {
+        const { farmers } = this.state;
+        const itemsPerPage = 7;
+        const { page } = this.state;
+        const totalPages = farmers.length / itemsPerPage;
+        const items = farmers.slice(
+            (page - 1) * itemsPerPage,
+            (page - 1) * itemsPerPage + itemsPerPage
+        );
+        console.log('farmers', farmers);
         return (
             <>
                 <Card.Group className="table-card">
@@ -28,7 +66,8 @@ class ViewFarmersTable extends Component {
                                         New</Button></Link>
                                 </Grid.Column>
                             </Grid>
-
+                           { Object.keys(farmers).length ?
+                           <>
                             <Table className="table-card" singleLine>
                                 <Table.Header>
                                     <Table.Row>
@@ -36,9 +75,9 @@ class ViewFarmersTable extends Component {
                                         <Table.HeaderCell>Last Name</Table.HeaderCell>
                                         <Table.HeaderCell>ID Number</Table.HeaderCell>
                                         <Table.HeaderCell>Gender</Table.HeaderCell>
-                                        <Table.HeaderCell>Land (are)</Table.HeaderCell>
+                                        <Table.HeaderCell>Land (size)</Table.HeaderCell>
                                         <Table.HeaderCell>DOB</Table.HeaderCell>
-                                        <Table.HeaderCell>Zone</Table.HeaderCell>
+                                        <Table.HeaderCell>Season</Table.HeaderCell>
                                         <Table.HeaderCell>Phone number</Table.HeaderCell>
                                         <Table.HeaderCell>e-mail</Table.HeaderCell>
                                         <Table.HeaderCell>Actions</Table.HeaderCell>
@@ -46,120 +85,37 @@ class ViewFarmersTable extends Component {
                                 </Table.Header>
 
                                 <Table.Body>
-                                    <Table.Row>
-                                        <Table.Cell>John Lilki</Table.Cell>
-                                        <Table.Cell>September 14, 2013</Table.Cell>
-                                        <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
+                                {_.map(items, ({ id, firstName, lastName, nationalId, gender, farm: { landSize, season }, dateOfBirth, phoneNumber, email  }) => (
+                                    <Table.Row key={id}>
+                                        <Table.Cell>{firstName}</Table.Cell>
+                                        <Table.Cell>{lastName}</Table.Cell>
+                                        <Table.Cell>{nationalId}</Table.Cell>
+                                        <Table.Cell>{gender}</Table.Cell>
+                                        <Table.Cell>{landSize}</Table.Cell>
+                                        <Table.Cell>{moment(dateOfBirth).format("dddd, MMMM Do YYYY")}</Table.Cell>
+                                        <Table.Cell>{season}</Table.Cell>
+                                        <Table.Cell>{phoneNumber}</Table.Cell>
+                                        <Table.Cell>{email}</Table.Cell>
                                         <Table.Cell>
                                             <Popup content='Edit' trigger={<Link to="/edit-farmer"><Icon color="yellow" name="edit" /></Link>} />
                                         </Table.Cell>
                                     </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>Jamie Harington</Table.Cell>
-                                        <Table.Cell>January 11, 2014</Table.Cell>
-                                        <Table.Cell>jamieharingonton@yahoo.com</Table.Cell>
-                                        <Table.Cell>Yes</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>
-                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>Jill Lewis</Table.Cell>
-                                        <Table.Cell>May 11, 2014</Table.Cell>
-                                        <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-                                        <Table.Cell>Yes</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>
-                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>Jill Lewis</Table.Cell>
-                                        <Table.Cell>May 11, 2014</Table.Cell>
-                                        <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-                                        <Table.Cell>Yes</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>
-                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>Jill Lewis</Table.Cell>
-                                        <Table.Cell>May 11, 2014</Table.Cell>
-                                        <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-                                        <Table.Cell>Yes</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>
-                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>Jill Lewis</Table.Cell>
-                                        <Table.Cell>May 11, 2014</Table.Cell>
-                                        <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-                                        <Table.Cell>Yes</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>
-                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>Jill Lewis</Table.Cell>
-                                        <Table.Cell>May 11, 2014</Table.Cell>
-                                        <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-                                        <Table.Cell>Yes</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>
-                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>Jill Lewis</Table.Cell>
-                                        <Table.Cell>May 11, 2014</Table.Cell>
-                                        <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-                                        <Table.Cell>Yes</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>No</Table.Cell>
-                                        <Table.Cell>
-                                            <Popup content='Edit' trigger={<Icon color="yellow" name="edit" />} />
-                                        </Table.Cell>
-                                    </Table.Row>
+                                    ))}
                                 </Table.Body>
                             </Table>
+                            <div className="center-pagination">
+                                <Pagination
+                                    activePage={page}
+                                    totalPages={totalPages}
+                                    siblingRange={1}
+                                    onPageChange={this.setPageNum}
+                                />
+                            </div>
+                            </> : 
+                            <Message info>
+                            <p className="center-text">No Farmers available, Please create..</p>
+                           </Message>
+                           }
                         </Card.Content>
                     </Card>
                 </Card.Group>
@@ -169,4 +125,15 @@ class ViewFarmersTable extends Component {
     }
 }
 
-export default ViewFarmersTable;
+
+const mapStateToProps = ({
+    farmer: { listOfFarmers, getFarmers: { loading, message, errors } } }) => ({
+        listOfFarmers,
+        loading,
+        message,
+        errors
+ });
+
+
+export default connect(mapStateToProps, { getFarmers })(ViewFarmersTable);
+

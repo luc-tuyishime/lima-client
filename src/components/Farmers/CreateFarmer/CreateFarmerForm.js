@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Card, Grid, Button, Form, Select, Input } from "semantic-ui-react";
 import SemanticDatepicker from "react-semantic-ui-datepickers";
+import { ToastContainer, toast } from 'react-toastify';
 
 import { getOrganization, getZoneByCooperative, getSiteByZone } from '../../../actions/organization';
 import { getProvinces, getDistrictByProvinces, getSectorsByDistricts, getCellsBySectors, 
@@ -11,6 +12,7 @@ import { mapValues } from '../../../helpers/mapValues';
 import { cropCultivated } from '../../../helpers/farmer/cropCultivated';
 import { types } from '../../../helpers/farmer/type';
 import { status } from '../../../helpers/farmer/status';
+import { create } from '../../../actions/farmer';
 
 import "../../../assets/css/scroll.scss";
 import "../../../assets/css/table.scss";
@@ -26,7 +28,7 @@ class CreateFarmerForm extends Component {
           cooperativeSite: '',
           cropCultivated: '',
           cultivatedSize: '',
-          birth: '',
+          dateOfBirth: '',
           email: '',
           farmerType: '',
           firstName: '',
@@ -41,10 +43,9 @@ class CreateFarmerForm extends Component {
           districtByProvince: '',
           sectors: '',
           cells: '',
-          village: ''
+          villageId: ''
 
         },
-        errors: {},
         loading: false,
         loadingZone: false, 
         loadingSite: false,
@@ -92,10 +93,9 @@ class CreateFarmerForm extends Component {
             this.getLocations(data, key);
         }
       
-      const { form, errors } = this.state;
+      const { form } = this.state;
       this.setState({
          form: { ...form, [data.name]: data.value },
-         errors: { ...errors, [data.name]: null },
          loading: false,
          message: ''
       });
@@ -108,6 +108,10 @@ class CreateFarmerForm extends Component {
     };
 
     UNSAFE_componentWillReceiveProps = (nextProps) => {
+        const newError = nextProps && nextProps.errorsFarmer;
+        const alertMessage = (nextProps.messageFarmer && toast.success(nextProps.messageFarmer))
+          || (newError === 'Request failed with status code 400' ? 
+          toast.error('Please fill all the input fields') : '');
         this.setState({
             Organizations: nextProps.listOfOrganization,
             zone: nextProps.listOfZoneByCooperative,
@@ -125,11 +129,21 @@ class CreateFarmerForm extends Component {
             
         });
          
-        return this.setState;
+        return this.setState && alertMessage;
     };
+
+     handleSubmit = (e) => {
+      e.preventDefault();
+      const { create } = this.props;
+      const { errors, form } = this.state;
+      const { ...formData } = form;
+      this.setState({ errors: { ...errors } });
+       create(formData)
+   };
 
 
 	render() {
+        const { createFarmerLoading } = this.props;
         const { Organizations, zone, site, form, errors, 
         loading, loadingZone, loadingSite, provinces,
          loadingDistricts, districtByProvinces, 
@@ -147,13 +161,14 @@ class CreateFarmerForm extends Component {
 
         console.log('Forms =>', form);
 		return (
-			<>
+			<div>
+      <ToastContainer position={toast.POSITION.TOP_RIGHT} />
 				<Card.Group className='table-card scroll-style'>
 					<Card fluid>
 						<Card.Content className='header-bg-color'>
 							Farmer's registration form
 						</Card.Content>
-						<Form>
+						<Form onSubmit={this.handleSubmit}>
 							<Grid>
 								<Grid.Column floated='left' width={8}>
 									<div
@@ -161,124 +176,124 @@ class CreateFarmerForm extends Component {
 										className='left-padding'
 									>
 										<Form.Field
-                                        loading={loading}
-                                        id="select"
-                                        control={Select}
-                                        label="Cooperative"
-                                        onChange={this.handleChange}
-                                        options={displayOrganizations}
-                                        placeholder="cooperative"
-                                        name="cooperative"
-                                        value={form.cooperative || ""}
-                                        error={errors.cooperative}
-                                        search
-                                    />
-                                    <Form.Field
-                                        loading={loadingZone}
-                                        id="select"
-                                        control={Select}
-                                        label="Cooperative Zone"
-                                        onChange={this.handleChange}
-                                        options={displayZone}
-                                        placeholder="cooperativeZone"
-                                        name="cooperativeZone"
-                                        value={form.cooperativeZone || ""}
-                                        error={errors.cooperativeZone}
-                                    />
-                                    
-                                    <Form.Field
-                                        loading={loadingSite}
-                                        id="select"
-                                        control={Select}
-                                        label="Cooperative Site"
-                                        onChange={this.handleChange}
-                                        options={displaySite}
-                                        placeholder="cooperative Site"
-                                        name="cooperativeSite"
-                                        value={form.cooperativeSite || ""}
-                                        error={errors.cooperativeSite}
-                                    />
+                      loading={loading}
+                      id="select"
+                      control={Select}
+                      label="Cooperative"
+                      onChange={this.handleChange}
+                      options={displayOrganizations}
+                      placeholder="cooperative"
+                      name="cooperative"
+                      value={form.cooperative || ""}
+                      // error={errors.cooperative}
+                      search
+                  />
+                  <Form.Field
+                      loading={loadingZone}
+                      id="select"
+                      control={Select}
+                      label="Cooperative Zone"
+                      onChange={this.handleChange}
+                      options={displayZone}
+                      placeholder="cooperativeZone"
+                      name="cooperativeZone"
+                      value={form.cooperativeZone || ""}
+                      // error={errors.cooperativeZone}
+                  />
+                  
+                  <Form.Field
+                      loading={loadingSite}
+                      id="select"
+                      control={Select}
+                      label="Cooperative Site"
+                      onChange={this.handleChange}
+                      options={displaySite}
+                      placeholder="cooperative Site"
+                      name="cooperativeSite"
+                      value={form.cooperativeSite || ""}
+                      // error={errors.cooperativeSite}
+                  />
 
 									<Form.Field
-                                        id="select"
-                                        control={Select}
-                                        label="Crop Cultivated"
-                                        onChange={this.handleChange}
-                                        options={cropCultivated}
-                                        placeholder="Crop Cultivated"
-                                        name="cropCultivated"
-                                        value={form.cropCultivated || ""}
-                                        error={errors.cropCultivated}
-                                        search
-                                    />
+                      id="select"
+                      control={Select}
+                      label="Crop Cultivated"
+                      onChange={this.handleChange}
+                      options={cropCultivated}
+                      placeholder="Crop Cultivated"
+                      name="cropCultivated"
+                      value={form.cropCultivated || ""}
+                      // error={errors.cropCultivated}
+                      search
+                  />
 									<Form.Input
-                                        label="Cultivated Size"
-                                        placeholder="Cultivated Size"
-                                        name="cultivatedSize"
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        value={form.cultivatedSize || ""}
-                                        error={errors.cultivatedSize}
-                                    />
+                      label="Cultivated Size"
+                      placeholder="Cultivated Size"
+                      name="cultivatedSize"
+                      type="text"
+                      onChange={this.handleChange}
+                      value={form.cultivatedSize || ""}
+                      // error={errors.cultivatedSize}
+                  />
 									<Form.Group widths='equal'>
 									<SemanticDatepicker
 									    label="Date of Birth"
 										placeholder="Date of birth"
-										name='birth'
-                                        onChange={this.handleChange}
-                                        value={form.birth || ""}
-                                        error={errors.birth}
+										name='dateOfBirth'
+                    onChange={this.handleChange}
+                    value={form.dateOfBirth || ""}
+                    // error={errors.dateOfBirth}
 									/>
 									</Form.Group>
 										<Form.Input
-                                        label="Email"
-                                        placeholder="Email"
-                                        name="email"
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        value={form.email || ""}
-                                        error={errors.email}
-                                       />
+                      label="Email"
+                      placeholder="Email"
+                      name="email"
+                      type="text"
+                      onChange={this.handleChange}
+                      value={form.email || ""}
+                      // error={errors.email}
+                      />
 									 <Form.Field
-                                        id="select"
-                                        control={Select}
-                                        label="Farmer Type"
-                                        onChange={this.handleChange}
-                                        options={types}
-                                        placeholder="Farmer Type"
-                                        name="farmerType"
-                                        value={form.farmerType || ""}
-                                        error={errors.farmerType}
-                                      />
-                                      <Form.Input
-                                        label="First Name"
-                                        placeholder="firstName"
-                                        name="firstName"
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        value={form.firstName || ""}
-                                        error={errors.firstName}
-                                       />
+                      id="select"
+                      control={Select}
+                      label="Farmer Type"
+                      onChange={this.handleChange}
+                      options={types}
+                      placeholder="Farmer Type"
+                      name="farmerType"
+                      value={form.farmerType || ""}
+                      // error={errors.farmerType}
+                    />
+                    <Form.Input
+                      label="First Name"
+                      placeholder="firstName"
+                      name="firstName"
+                      type="text"
+                      onChange={this.handleChange}
+                      value={form.firstName || ""}
+                      // error={errors.firstName}
+                      />
 										<Form.Field
-                                        id="select"
-                                        control={Select}
-                                        label="Gender"
-                                        onChange={this.handleChange}
-                                        options={gender}
-                                        placeholder="gender"
-                                        name="gender"
-                                        value={form.gender || ""}
-                                        error={errors.gender}
-                                      />
-                                      <Form.Input
-                                        label="Last Name"
-                                        placeholder="lastName"
-                                        name="lastName"
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        value={form.lastName || ""}
-                                        error={errors.lastName}
-                                       />
+                      id="select"
+                      control={Select}
+                      label="Gender"
+                      onChange={this.handleChange}
+                      options={gender}
+                      placeholder="gender"
+                      name="gender"
+                      value={form.gender || ""}
+                      // error={errors.gender}
+                    />
+                    <Form.Input
+                      label="Last Name"
+                      placeholder="lastName"
+                      name="lastName"
+                      type="text"
+                      onChange={this.handleChange}
+                      value={form.lastName || ""}
+                      // error={errors.lastName}
+                      />
 									</div>
 								</Grid.Column>
 								<Grid.Column floated='right' width={8}>
@@ -287,112 +302,113 @@ class CreateFarmerForm extends Component {
 										className='left-padding'
 									>
 										<Form.Input
-                                        label="Membership Amount"
-                                        placeholder="membership Amount"
-                                        name="membershipAmount"
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        value={form.membershipAmount || ""}
-                                        error={errors.membershipAmount}
-                                       />
+                      label="Membership Amount"
+                      placeholder="membership Amount"
+                      name="membershipAmount"
+                      type="text"
+                      onChange={this.handleChange}
+                      value={form.membershipAmount || ""}
+                      // error={errors.membershipAmount}
+                      />
 									   <Form.Input
-                                        label="National Id"
-                                        placeholder="national Id"
-                                        name="nationalId"
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        value={form.nationalId || ""}
-                                        error={errors.nationalId}
-                                       />
+                      label="National Id"
+                      placeholder="national Id"
+                      name="nationalId"
+                      type="text"
+                      onChange={this.handleChange}
+                      value={form.nationalId || ""}
+                      // error={errors.nationalId}
+                      />
 									   <Form.Input
-                                        label="Nationality"
-                                        placeholder="nationality"
-                                        name="nationality"
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        value={form.nationality || ""}
-                                        error={errors.nationality}
-                                       />
+                      label="Nationality"
+                      placeholder="nationality"
+                      name="nationality"
+                      type="text"
+                      onChange={this.handleChange}
+                      value={form.nationality || ""}
+                      // error={errors.nationality}
+                      />
 									   <Form.Input
-                                        label="Phone Number"
-                                        placeholder="phone Number"
-                                        name="phoneNumber"
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        value={form.phoneNumber || ""}
-                                        error={errors.phoneNumber}
-                                       />
+                      label="Phone Number"
+                      placeholder="phone Number"
+                      name="phoneNumber"
+                      type="text"
+                      onChange={this.handleChange}
+                      value={form.phoneNumber || ""}
+                      // error={errors.phoneNumber}
+                      />
 									   <Form.Field
-                                        id="select"
-                                        control={Select}
-                                        label="Status"
-                                        onChange={this.handleChange}
-                                        options={status}
-                                        placeholder="status"
-                                        name="status"
-                                        value={form.status || ""}
-                                        error={errors.status}
-                                      />
-                                      <Form.Field
-                                        id="select"
-                                        control={Select}
-                                        label="Province"
-                                        onChange={this.handleChange}
-                                        options={displayProvince}
-                                        placeholder="Select province"
-                                        name="province"
-                                        value={form.province || ""}
-                                        error={errors.province}
-                                    />
-                                    <Form.Field
-                                        loading={loadingDistricts}
-                                        id="select"
-                                        control={Select}
-                                        label="District"
-                                        onChange={this.handleChange}
-                                        options={displayDistricts}
-                                        placeholder="Select district"
-                                        name="districtByProvince"
-                                        value={form.districtByProvince || ""}
-                                        error={errors.districtByProvince}
-                                    />
-                                    <Form.Field
-                                        loading={loadingSectors}
-                                        id="select"
-                                        control={Select}
-                                        label="Sector"
-                                        onChange={this.handleChange}
-                                        options={displaySectors}
-                                        placeholder="Select sector"
-                                        name="sectors"
-                                        value={form.sectors || ""}
-                                        error={errors.sectors}
-                                    />
-                                    <Form.Field
-                                        loading={loadingCells}
-                                        id="select"
-                                        control={Select}
-                                        label="Cell"
-                                        onChange={this.handleChange}
-                                        options={displayCells}
-                                        placeholder="Select sell"
-                                        name="cells"
-                                        value={form.cells || ""}
-                                        error={errors.cells}
-                                    />
+                      id="select"
+                      control={Select}
+                      label="Status"
+                      onChange={this.handleChange}
+                      options={status}
+                      placeholder="status"
+                      name="status"
+                      value={form.status || ""}
+                      // error={errors.status}
+                    />
+                    <Form.Field
+                      id="select"
+                      control={Select}
+                      label="Province"
+                      onChange={this.handleChange}
+                      options={displayProvince}
+                      placeholder="Select province"
+                      name="province"
+                      value={form.province || ""}
+                      // error={errors.province}
+                  />
+                  <Form.Field
+                      loading={loadingDistricts}
+                      id="select"
+                      control={Select}
+                      label="District"
+                      onChange={this.handleChange}
+                      options={displayDistricts}
+                      placeholder="Select district"
+                      name="districtByProvince"
+                      value={form.districtByProvince || ""}
+                      // error={errors.districtByProvince}
+                  />
+                  <Form.Field
+                      loading={loadingSectors}
+                      id="select"
+                      control={Select}
+                      label="Sector"
+                      onChange={this.handleChange}
+                      options={displaySectors}
+                      placeholder="Select sector"
+                      name="sectors"
+                      value={form.sectors || ""}
+                      // error={errors.sectors}
+                  />
+                  <Form.Field
+                      loading={loadingCells}
+                      id="select"
+                      control={Select}
+                      label="Cell"
+                      onChange={this.handleChange}
+                      options={displayCells}
+                      placeholder="Select sell"
+                      name="cells"
+                      value={form.cells || ""}
+                      // error={errors.cells}
+                  />
 									   <Form.Field
-                                        id="select"
-                                        control={Select}
-                                        label="Village"
-                                        onChange={this.handleChange}
-                                        options={displayVillage}
-                                        placeholder="village"
-                                        name="village"
-                                        value={form.village || ""}
-                                        error={errors.village}
-                                      />
+                      id="select"
+                      control={Select}
+                      label="Village"
+                      onChange={this.handleChange}
+                      options={displayVillage}
+                      placeholder="village"
+                      name="villageId"
+                      value={form.villageId || ""}
+                      // error={errors.villageId}
+                    />
                                       
 										<Button
+                      loading={createFarmerLoading}
 											primary
 											className='btn-create-farmer'
 											type='submit'
@@ -406,14 +422,20 @@ class CreateFarmerForm extends Component {
 					</Card>
 				</Card.Group>
 				<p id='footer-content'>Copyright &copy; MAHWI Tech Ltd</p>
-			</>
+			</div>
 		);
 	}
 };
 
 const mapStateToProps = ({
     user: { profile },
-
+    farmer: {
+        createFarmer: {
+          loading: createFarmerLoading,
+          message: messageFarmer,
+          errors: errorsFarmer,
+        }  
+    },
      cooperative: { 
         listOfProvinces, 
         listOfDistrictsByProvinces,
@@ -456,12 +478,12 @@ const mapStateToProps = ({
         loadingCells,
         loadingZone,
         siteLoading,
-        loading,
-        message,
-        errors
+        createFarmerLoading,
+        messageFarmer,
+        errorsFarmer
     });
 
 export default connect(mapStateToProps, { getOrganization, 
 getZoneByCooperative, getSiteByZone,  getProvinces, 
 getDistrictByProvinces, getSectorsByDistricts, getCellsBySectors, 
-getVillagesByCell })(CreateFarmerForm);
+getVillagesByCell, create })(CreateFarmerForm);

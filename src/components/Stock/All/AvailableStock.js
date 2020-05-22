@@ -5,6 +5,7 @@ import Navbar from '../../common/Navbar/Navbar';
 import { MiniNavbar } from '../../common/Navbar/MiniNavbar';
 import AddNewStock from './AddNewStock';
 import AvailableStockTable from './AvailableStockTable';
+import AddNewHarvest from './AddNewHarvest';
 
 import '../../../assets/css/table.scss';
 import './stock.scss';
@@ -38,6 +39,12 @@ class AvailableStock extends Component {
                     <AddNewStock />
                 </Tab.Pane>,
             },
+            {
+                menuItem: 'Add new harvest',
+                render: () => <Tab.Pane className="tab-members" attached={false}>
+                    <AddNewHarvest />
+                </Tab.Pane>,
+            }
         ]
 
         return (
