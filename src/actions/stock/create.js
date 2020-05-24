@@ -3,7 +3,7 @@ import { apiAction } from '../../helpers';
 
 export default formData => dispatch => dispatch(apiAction({
     method: 'post',
-    url: '/core/api/farmers',
+    url: '/',
     data: { ...formData },
     onStart: farmerActionsTypes.CREATE_FARMER_START,
     onEnd: farmerActionsTypes.CREATE_FARMER_END,

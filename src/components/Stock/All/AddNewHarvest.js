@@ -10,9 +10,9 @@ class AddNewHarvest extends Component {
                 <Form>
                     <Form.Group unstackable widths={2}>
                         <Form.Input
-                            label="Product Code"
-                            placeholder="product code...."
-                            name="productCode"
+                            label="Farmer name"
+                            placeholder="Farmer name...."
+                            name="farmerName"
                             type="text"
                         />
                         <Form.Field
@@ -29,10 +29,10 @@ class AddNewHarvest extends Component {
                         <Form.Field
                             id="select"
                             control={Select}
-                            label="Category"
+                            label="Incomig quatity"
                             //    options={relationPO}
-                            placeholder="category...."
-                            name="category"
+                            placeholder="incoming quantity...."
+                            name="quantity"
                             search
                         />
                         <Form.Input

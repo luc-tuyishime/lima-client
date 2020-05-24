@@ -3,7 +3,7 @@ import { apiAction } from '../../helpers';
 
 export default email => dispatch => dispatch(apiAction({
     method: 'post',
-    url: 'auth/initiate-reset-password',
+    url: '/core/api/auth/initiate-reset-password',
     data: { email },
     onStart: userActionsTypes.FORGOT_PASSWORD_START,
     onEnd: userActionsTypes.FORGOT_PASSWORD_END,

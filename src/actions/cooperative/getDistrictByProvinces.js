@@ -3,7 +3,7 @@ import { apiAction } from '../../helpers';
 
 export default (id) => dispatch => dispatch(apiAction({
     method: 'get',
-    url: `/location-addresses/districts/province/${id}`,
+    url: `/core/api/location-addresses/districts/province/${id}`,
     onStart: cooperativeActionsTypes.GET_DISTRICTS_BY_PROVINCES_START,
     onEnd: cooperativeActionsTypes.GET_DISTRICTS_BY_PROVINCES_END,
     onSuccess: cooperativeActionsTypes.GET_DISTRICTS_BY_PROVINCES_SUCCESS,

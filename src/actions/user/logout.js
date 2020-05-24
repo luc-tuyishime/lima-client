@@ -3,7 +3,7 @@ import { apiAction } from '../../helpers';
 
 export default () => dispatch => dispatch(apiAction({
     method: 'get',
-    url: '/auth/logout',
+    url: '/core/api/auth/logout',
     onStart: userActionsTypes.LOGOUT_USER_START,
     onEnd: userActionsTypes.LOGOUT_USER_END,
     onSuccess: userActionsTypes.LOGOUT_USER_SUCCESS,

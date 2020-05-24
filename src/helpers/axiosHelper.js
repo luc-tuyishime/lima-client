@@ -9,8 +9,8 @@ export default (data = {}) => {
    const { token, URL } = data;
    const baseURL =
       URL ||
-      (reactUrl && `${reactUrl}/api`) ||
-      (defaultUrl && `${defaultUrl}/api`);
+      (reactUrl && `${reactUrl}/mlimaplatform`) ||
+      (defaultUrl && `${defaultUrl}/mlimaplatform`);
    const headers = {
       'access-token': token || localStorage.token || undefined,
    };
