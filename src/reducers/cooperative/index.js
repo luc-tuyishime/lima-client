@@ -7,6 +7,7 @@ import getSectorsByDistricts from './getSectorsByDistricts';
 import getCellsBySectors from './getCellsBySectors';
 import getVillagesByCell from './getVillagesByCell';
 import createCooperative from './createCooperative';
+import getCooperative from './getCooperative';
 
 
 export default (state = initialState, action) => {
@@ -17,6 +18,7 @@ export default (state = initialState, action) => {
     const getCells = getCellsBySectors(state, action);
     const getVillages = getVillagesByCell(state, action);
     const create = createCooperative(state, action);
+    const getCooperatives = getCooperative(state, action);
 
     return (
         clearCooperativeStore
@@ -26,6 +28,7 @@ export default (state = initialState, action) => {
         || getCells
         || getVillages
         || create
+        || getCooperatives
         || state
     );
 };

@@ -34,4 +34,11 @@ module.exports = {
         message: '',
         errors: {}
     },
+
+    listOfCooperative: [],
+    fetchCooperative: {
+        loading: false,
+        message: '',
+        errors: {}
+    }
 };

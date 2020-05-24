@@ -19,6 +19,7 @@ import AvailableStock from './stock/AvailableStock';
 import OperationStock from './stock/OperationStock';
 import RequisitionStock from './stock/RequisitionStock';
 import OrderStock from './stock/OrderStock';
+import PendingApprovals from './stock/pendingApprovals';
 import Dashboard from './dashboard/ViewDashboard';
 import ViewPetitCash from './finance/ViewPetitCash';
 import ViewReports  from './finance/ViewReport';
@@ -52,5 +53,6 @@ export default [
    ViewApprovals,
    ViewNewOperation,
    ActivateAccount,
-   ViewCreateOrganization
+   ViewCreateOrganization,
+   PendingApprovals
 ];

@@ -3,7 +3,7 @@ import { apiAction } from '../../helpers';
 
 export default formData => dispatch => dispatch(apiAction({
     method: 'post',
-    url: '/organizations/signup-cooperative',
+    url: '/core/api/organizations/signup-cooperative',
     data: { ...formData },
     onStart: cooperativeActionsTypes.CREATE_COOPERATIVE_START,
     onEnd: cooperativeActionsTypes.CREATE_COOPERATIVE_END,

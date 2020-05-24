@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Table } from 'semantic-ui-react';
+import { Card, Table, Form, Select } from 'semantic-ui-react';
 
 import TaskList from './RequisitionFormList';
 import Btn from '../../common/Button/Button';
@@ -66,7 +66,55 @@ class RequisitionForms extends Component {
                     </Card.Content>
                     <Card.Content>
                         <div id="aquisition" className="scroll-aquisition">
-                            <form onChange={this.handleChange}>                                       
+                            <Form onChange={this.handleChange}>
+                            
+                            <Form.Group widths='equal'>
+                                <Form.Field
+                                    id="select"
+                                    control={Select}
+                                    label="Request by"
+                                    onChange={this.handleChange}
+                                    // options={gender}
+                                    placeholder="Request by...."
+                                    name="gender"
+                                    search
+                                    // value={form.gender || ""}
+                                    // error={errors.gender}
+                                />
+                                <Form.Field
+                                    id="select"
+                                    control={Select}
+                                    label="Payment method"
+                                    onChange={this.handleChange}
+                                    // options={gender}
+                                    placeholder="Request by...."
+                                    name="gender"
+                                    search
+                                    // value={form.gender || ""}
+                                    // error={errors.gender}
+                                />
+                            </Form.Group> 
+                            <Form.Group widths='equal'>
+                            <Form.Input
+                                    label="Total Amount (frw)"
+                                    placeholder="Total amount(frw)...."
+                                    name="totalAmount"
+                                    type="text"
+                                    // onChange={this.handleChange}
+                                    // value={form.email || ""}
+                                    // error={errors.email}
+                                />
+                                <Form.Input
+                                    label="Amount paid"
+                                    placeholder="amount paid......"
+                                    name="amountPaid"
+                                    type="text"
+                                    // onChange={this.handleChange}
+                                    // value={form.firstName || ""}
+                                    // error={errors.firstName}
+                                />
+                                
+                            </Form.Group>                                       
                                     <Table singleLine>
                                         <Table.Header>
                                             <Table.Row>
@@ -83,7 +131,7 @@ class RequisitionForms extends Component {
                                         </Table.Body>
                                     </Table>
                                 <Btn primary className="btn-requisition">Send Request</Btn>
-                            </form>
+                            </Form>
                         </div>
                     </Card.Content>
                 </Card>
