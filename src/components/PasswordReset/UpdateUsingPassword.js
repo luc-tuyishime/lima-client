@@ -16,16 +16,16 @@ const LimaLogo = require('../../assets/images/Logo2.png');
 
 class UpdatePassword extends Component {
 
-  state = {
-    form: {
-      activationCode: '',
-      email: '',
-      password: '',
-    },
-    errors: {},
-    loading: false,
-    message: ''
-  };
+   state = {
+      form: {
+         activationCode: '',
+         email: '',
+         password: '',
+      },
+      errors: {},
+      loading: false,
+      message: ''
+   };
 
    handleChange = (_, data) => {
       const { form, errors } = this.state;
@@ -53,14 +53,14 @@ class UpdatePassword extends Component {
    };
 
 
-   componentWillReceiveProps = (nextProps) => {
-      const alertMessage = (nextProps.message && toast.success(nextProps.message))
-         || (nextProps.errors && toast.error(nextProps.errors));
-      this.setState({
-         errors: nextProps.errors,
-         message: nextProps.message
-      })
-      return !nextProps.loading && alertMessage;
+   static getDerivedStateFromProps = (props) => {
+      const alertMessage = (props.message && toast.success(props.message))
+         || (props.errors && toast.error(props.errors));
+
+      return (!props.loading && alertMessage) && {
+         errors: props.errors,
+         message: props.message
+      }
    };
 
    render() {
@@ -79,7 +79,7 @@ class UpdatePassword extends Component {
                   </Grid.Column>
                   <Grid.Column>
                      <div>
-                     <ToastContainer position={toast.POSITION.TOP_RIGHT} />
+                        <ToastContainer position={toast.POSITION.TOP_RIGHT} />
                         <Grid.Column>
                            <div className="">
                               <Image
@@ -102,7 +102,7 @@ class UpdatePassword extends Component {
                                           value={form.activationCode || ''}
                                           error={errors.activationCode}
                                        />
-                                        <Form.Input
+                                       <Form.Input
                                           label="Enter Email"
                                           name="email"
                                           type="text"
@@ -139,13 +139,13 @@ class UpdatePassword extends Component {
 }
 
 const mapStateToProps = ({
-  user: {
-    resetPassword: { errors, message, loading }
-  }
+   user: {
+      resetPassword: { errors, message, loading }
+   }
 }) => ({
-  errors,
-  message,
-  loading
+   errors,
+   message,
+   loading
 });
 
 export default connect(mapStateToProps, { resetPassword })(UpdatePassword);

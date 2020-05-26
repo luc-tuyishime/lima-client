@@ -6,6 +6,7 @@ import UpdatePasswordPhone from './user/UpdateUsingPhone';
 import ActivateAccount from './user/ActivateAccount';
 import RolesPermissions from './admin/RolesPermissions';
 import ViewCreateOrganization from './admin/CreateOrganization';
+import ViewEditCooperative from './admin/EditOrganization';
 import ManageUsers from './admin/ManageUsers';
 import ViewFarmers from './farmer/ViewFarmers';
 import EditFarmer from './farmer/EditFarmer';
@@ -54,5 +55,6 @@ export default [
    ViewNewOperation,
    ActivateAccount,
    ViewCreateOrganization,
-   PendingApprovals
+   PendingApprovals,
+   ViewEditCooperative
 ];

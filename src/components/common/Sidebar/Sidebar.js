@@ -175,7 +175,7 @@ class UserSidebar extends Component {
                                  <p className="text-side">Manage Users</p>
                               </Link>
                               <Link className="link-color" to="/organization">
-                                 <p className="text-side">Create Organization</p>
+                                 <p className="text-side">Cooperative</p>
                               </Link>
                            </Accordion.Content>
                         </Accordion>

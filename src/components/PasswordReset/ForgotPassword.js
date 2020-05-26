@@ -13,36 +13,40 @@ import './resetPassword.scss';
 
 const LimaLogo = require('../../assets/images/Logo2.png');
 
+const customId = "custom-id-yes";
+
 export class ForgotPassword extends Component {
 
    state = {
-        email: '',
-        loading: false
-    };
+      email: '',
+      loading: false
+   };
 
-    handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
+   handleChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value });
+   };
 
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        const { email } = this.state;
+   handleSubmit = async (e) => {
+      e.preventDefault();
+      const { email } = this.state;
 
-        if (regularExpression.test(email)) {
-            const isEmailSent = await this.props.forgotPassword(email);
-            this.setState({ email: '' });
-            return isEmailSent;
-        }
+      if (regularExpression.test(email)) {
+         const isEmailSent = await this.props.forgotPassword(email);
+         this.setState({ email: '' });
+         return isEmailSent;
+      }
 
-        return toast.error('Please enter your Email');
-    };
+      return toast.error('Please enter your Email');
+   };
 
-    UNSAFE_componentWillReceiveProps = (nextProps) => {
-        const alertMessage = (nextProps.message && toast.success('Email sent please check your Email'))
-            || (nextProps.errors && toast.error(nextProps.errors.message));
+   static getDerivedStateFromProps = (nextProps) => {
+      const alertMessage = (nextProps.message && toast.success('Email sent please check your Email', {
+         toastId: customId
+      }))
+         || (nextProps.errors && toast.error(nextProps.errors.message));
 
-        return !nextProps.loading && alertMessage;
-    };
+      return !nextProps.loading && alertMessage;
+   };
 
    render() {
       const { loading } = this.props;
@@ -61,7 +65,7 @@ export class ForgotPassword extends Component {
                   <Grid.Column>
                      <div>
                         <Grid.Column>
-                        <ToastContainer position={toast.POSITION.TOP_RIGHT} />
+                           <ToastContainer position={toast.POSITION.TOP_RIGHT} />
                            <div className="">
                               <Image
                                  className="logo-lima"
@@ -74,15 +78,15 @@ export class ForgotPassword extends Component {
                                  <Grid.Column width={4} />
                                  <Grid.Column width={8}>
                                     <Form onSubmit={this.handleSubmit} className="form-digits">
-                                          <Form.Input
-                                             label="Enter Email"
-                                             type="text"
-                                             name="email"
-                                             className="input-email"
-                                             placeholder="enter email"
-                                             onChange={this.handleChange}
-                                             value={email || ''}
-                                          />
+                                       <Form.Input
+                                          label="Enter Email"
+                                          type="text"
+                                          name="email"
+                                          className="input-email"
+                                          placeholder="enter email"
+                                          onChange={this.handleChange}
+                                          value={email || ''}
+                                       />
                                        <Btn
                                           className="btn-sign-in"
                                           type="submit"

@@ -15,6 +15,7 @@ export default (state, { type, payload }) => {
                 loginUser: { ...state.login, loading: false }
             };
         case userActionsTypes.LOGIN_USER_SUCCESS:
+        console.log('payload ==>', payload);
             const userToken = jwt(payload.accessToken);
             const { user } = userToken
             localStorage.user = JSON.stringify(user);

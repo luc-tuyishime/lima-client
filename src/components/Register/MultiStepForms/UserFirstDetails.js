@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Select } from 'semantic-ui-react';
+import { Form, Select, Message } from 'semantic-ui-react';
 import { ToastContainer, toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -12,6 +12,9 @@ import { validateLima } from '../../../helpers/validation';
 
 import Btn from '../../common/Button/Button';
 import '../Register.scss';
+
+const customId = "custom-id-yes";
+const customId2 = "custom-id-yess";
 
 class UserFirstDetails extends Component {
 
@@ -29,7 +32,8 @@ class UserFirstDetails extends Component {
       },
       errors: {},
       loading: false,
-      message: ''
+      message: '',
+      errorUp: {}
    };
 
    handleChange = (_, data) => {
@@ -41,11 +45,6 @@ class UserFirstDetails extends Component {
          message: ''
       });
    };
-
-   componentWillMount() {
-      const { listOfUsers } = this.props;
-      this.setState({ listOfUsers });
-   }
 
    handleSubmit = (e) => {
       e.preventDefault();
@@ -63,22 +62,32 @@ class UserFirstDetails extends Component {
    };
 
 
-   componentWillReceiveProps = (nextProps) => {
-      const alertMessage = (nextProps.message && toast.success(nextProps.message))
-         || (nextProps.errors && toast.error(nextProps.errors));
-      this.setState({
-         errors: nextProps.errors,
-         message: nextProps.message
-      })
-      return !nextProps.loading && alertMessage;
+   static getDerivedStateFromProps = (props) => {
+      console.log('prev state', props);
+      console.log('next props', props);
+      const alertMessage = (props.message && toast.success(props.message, {
+         toastId: customId2
+      }));
+
+      return {
+         // errors: prevState.errors,
+         // message: nextProps.message,
+         errorUp: props.errors
+      }
    };
 
    render() {
       const { loading } = this.props;
-      const { form, errors, message } = this.state;
+      const { form, errors, errorUp } = this.state;
       return (
          <div>
+            
             <div className="scroll-sign-up" id="style-1">
+            {(errorUp && Object.values(errorUp).length > 0) ? (
+               <Message color='red'>
+                     {Object.values(errorUp)}
+               </Message>
+            ) : ''}
                <ToastContainer position={toast.POSITION.TOP_RIGHT} />
                <Form onSubmit={this.handleSubmit}>
                   <Form.Group widths='equal'>

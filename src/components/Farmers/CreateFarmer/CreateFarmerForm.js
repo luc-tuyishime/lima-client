@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { Card, Grid, Button, Form, Select, Input } from "semantic-ui-react";
+import { Card, Grid, Button, Form, Select, Input, Message } from "semantic-ui-react";
 import SemanticDatepicker from "react-semantic-ui-datepickers";
 import { ToastContainer, toast } from 'react-toastify';
 
 import { getOrganization, getZoneByCooperative, getSiteByZone } from '../../../actions/organization';
-import { getProvinces, getDistrictByProvinces, getSectorsByDistricts, getCellsBySectors, 
-getVillagesByCell } from '../../../actions/cooperative';
+import {
+  getProvinces, getDistrictByProvinces, getSectorsByDistricts, getCellsBySectors,
+  getVillagesByCell
+} from '../../../actions/cooperative';
 import { gender } from "../../../helpers/userRegistration/gender";
 import { mapValues } from '../../../helpers/mapValues';
 import { cropCultivated } from '../../../helpers/farmer/cropCultivated';
@@ -19,54 +21,58 @@ import "../../../assets/css/table.scss";
 import "../../../assets/css/scroll.scss";
 import "./CreateFarmer.scss";
 
+const customId = "custom-id-yes";
+const customId2 = "custom-id-yes2";
+
 class CreateFarmerForm extends Component {
-	
-    state = {
-		form: {
-          cooperative: '',
-          cooperativeZone: '',
-          cooperativeSite: '',
-          cropCultivated: '',
-          cultivatedSize: '',
-          dateOfBirth: '',
-          email: '',
-          farmerType: '',
-          firstName: '',
-          gender: '',
-          lastName: '',
-          membershipAmount: '',
-          nationalId: '',
-          nationality: '',
-          phoneNumber: '',
-          status: '',
-          province: '',
-          districtByProvince: '',
-          sectors: '',
-          cells: '',
-          villageId: ''
 
-        },
-        loading: false,
-        loadingZone: false, 
-        loadingSite: false,
-        loadingDistricts: false,
-        loadingSectors: false,
-        loadingCell: false,
-        message: '',
-        Organizations: [],
-        zone: [],
-        site: [],
-        provinces: [],
-        districtByProvinces: [],
-        sectorsByDistricts: [],
-        cellsBySectors: [],
-        villagesByCell: [],
-	};
+  state = {
+    form: {
+      cooperative: '',
+      cooperativeZone: '',
+      cooperativeSite: '',
+      cropCultivated: '',
+      cultivatedSize: '',
+      dateOfBirth: '',
+      email: '',
+      farmerType: '',
+      firstName: '',
+      gender: '',
+      lastName: '',
+      membershipAmount: '',
+      nationalId: '',
+      nationality: '',
+      phoneNumber: '',
+      status: '',
+      province: '',
+      districtByProvince: '',
+      sectors: '',
+      cells: '',
+      villageId: ''
 
-    getLocations = (data, key) => {
-    const { getZoneByCooperative, getSiteByZone, 
-            getDistrictByProvinces, getSectorsByDistricts, 
-            getCellsBySectors, getVillagesByCell } = this.props;
+    },
+    loading: false,
+    loadingZone: false,
+    loadingSite: false,
+    loadingDistricts: false,
+    loadingSectors: false,
+    loadingCell: false,
+    message: '',
+    Organizations: [],
+    zone: [],
+    site: [],
+    provinces: [],
+    districtByProvinces: [],
+    sectorsByDistricts: [],
+    cellsBySectors: [],
+    villagesByCell: [],
+    errorUp: ''
+  };
+
+  getLocations = (data, key) => {
+    const { getZoneByCooperative, getSiteByZone,
+      getDistrictByProvinces, getSectorsByDistricts,
+      getCellsBySectors, getVillagesByCell } = this.props;
     if (data.name === 'cooperative') {
       return getZoneByCooperative(key);
     }
@@ -87,95 +93,100 @@ class CreateFarmerForm extends Component {
     }
   };
 
-    handleChange = (_, data) => {
-       if(data.options){
-            const { key } = data.options.find((e) => e.value === data.value);
-            this.getLocations(data, key);
-        }
-      
-      const { form } = this.state;
-      this.setState({
-         form: { ...form, [data.name]: data.value },
-         loading: false,
-         message: ''
-      });
-   };
+  handleChange = (_, data) => {
+    if (data.options) {
+      const { key } = data.options.find((e) => e.value === data.value);
+      this.getLocations(data, key);
+    }
 
-    componentDidMount = () => {
-        const { getOrganization, getProvinces } = this.props;
-        getOrganization();
-        getProvinces();
-    };
+    const { form } = this.state;
+    this.setState({
+      form: { ...form, [data.name]: data.value },
+      loading: false,
+      message: ''
+    });
+  };
 
-    UNSAFE_componentWillReceiveProps = (nextProps) => {
-        const newError = nextProps && nextProps.errorsFarmer;
-        const alertMessage = (nextProps.messageFarmer && toast.success(nextProps.messageFarmer))
-          || (newError === 'Request failed with status code 400' ? 
-          toast.error('Please fill all the input fields') : '');
-        this.setState({
-            Organizations: nextProps.listOfOrganization,
-            zone: nextProps.listOfZoneByCooperative,
-            site: nextProps.listOfSiteByZone,
-            provinces: nextProps.listOfProvinces,
-            districtByProvinces: nextProps.listOfDistrictsByProvinces,
-            sectorsByDistricts: nextProps.listOfSectorsByDistricts,
-            loading: nextProps.loading,
-            loadingZone: nextProps.loadingZone,
-            loadingSite: nextProps.siteLoading,
-            loadingSectors: nextProps.loadingSectorsByDistricts,
-            loadingCells: nextProps.loadingCells,
-            cellsBySectors: nextProps.listOfCellsBySectors,
-            villagesByCell: nextProps.listOfVillagesByCell
-            
-        });
-         
-        return this.setState && alertMessage;
-    };
+  componentDidMount = () => {
+    const { getOrganization, getProvinces } = this.props;
+    getOrganization();
+    getProvinces();
+  };
 
-     handleSubmit = (e) => {
-      e.preventDefault();
-      const { create } = this.props;
-      const { errors, form } = this.state;
-      const { ...formData } = form;
-      this.setState({ errors: { ...errors } });
-       create(formData)
-   };
+  static getDerivedStateFromProps = (props) => {
+    console.log('errrrrrrr', props);
+    const newError = props && props.errorsFarmer;
+    const alertMessage = (props.messageFarmer && toast.success(props.messageFarmer,{
+      toastId: customId2
+    }));
+
+    return {
+      Organizations: props.listOfOrganization,
+      zone: props.listOfZoneByCooperative,
+      site: props.listOfSiteByZone,
+      provinces: props.listOfProvinces,
+      districtByProvinces: props.listOfDistrictsByProvinces,
+      sectorsByDistricts: props.listOfSectorsByDistricts,
+      loading: props.loading,
+      loadingZone: props.loadingZone,
+      loadingSite: props.siteLoading,
+      loadingDistricts: props.loadingDistrictsByProvinces,
+      loadingSectors: props.loadingSectorsByDistricts,
+      loadingCells: props.loadingCells,
+      cellsBySectors: props.listOfCellsBySectors,
+      villagesByCell: props.listOfVillagesByCell,
+      errorUp: props.errorsFarmer
+    }
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { create } = this.props;
+    const { errors, form } = this.state;
+    const { ...formData } = form;
+    this.setState({ errors: { ...errors } });
+    create(formData)
+  };
 
 
-	render() {
-        const { createFarmerLoading } = this.props;
-        const { Organizations, zone, site, form, errors, 
-        loading, loadingZone, loadingSite, provinces,
-         loadingDistricts, districtByProvinces, 
-         sectorsByDistricts, loadingSectors, cellsBySectors, 
-         loadingCells, villagesByCell } = this.state;
+  render() {
+    const { createFarmerLoading } = this.props;
+    const { Organizations, zone, site, form, errors,
+      loading, loadingZone, loadingSite, provinces,
+      loadingDistricts, districtByProvinces,
+      sectorsByDistricts, loadingSectors, cellsBySectors,
+      loadingCells, villagesByCell , errorUp } = this.state;
 
-        const displayOrganizations = Organizations.map(mapValues);
-        const displayZone = zone.map(mapValues);
-        const displaySite = site.map(mapValues);
-        const displayProvince = provinces.map(mapValues);
-        const displayDistricts = districtByProvinces.map(mapValues);
-        const displaySectors = sectorsByDistricts.map(mapValues);
-        const displayCells = cellsBySectors.map(mapValues);
-        const displayVillage = villagesByCell.map(mapValues);
-
-        console.log('Forms =>', form);
-		return (
-			<div>
-      <ToastContainer position={toast.POSITION.TOP_RIGHT} />
-				<Card.Group className='table-card scroll-style'>
-					<Card fluid>
-						<Card.Content className='header-bg-color'>
-							Farmer's registration form
+    const displayOrganizations = Organizations.map(mapValues);
+    const displayZone = zone.map(mapValues);
+    const displaySite = site.map(mapValues);
+    const displayProvince = provinces.map(mapValues);
+    const displayDistricts = districtByProvinces.map(mapValues);
+    const displaySectors = sectorsByDistricts.map(mapValues);
+    const displayCells = cellsBySectors.map(mapValues);
+    const displayVillage = villagesByCell.map(mapValues);
+    
+    return (
+      <div>
+        <ToastContainer position={toast.POSITION.TOP_RIGHT} />
+        <Card.Group className='table-card scroll-style'>
+          <Card fluid>
+          {(errorUp && Object.values(errorUp).length > 0) ? (
+               <Message color='red'>
+                     <p style={{textAlign: 'center'}}>Please fill all the input fields</p>
+               </Message>
+            ) : ''}
+            <Card.Content className='header-bg-color'>
+              Farmer's registration form
 						</Card.Content>
-						<Form onSubmit={this.handleSubmit}>
-							<Grid>
-								<Grid.Column floated='left' width={8}>
-									<div
-										id='edit-scroll'
-										className='left-padding'
-									>
-										<Form.Field
+            <Form onSubmit={this.handleSubmit}>
+              <Grid>
+                <Grid.Column floated='left' width={8}>
+                  <div
+                    id='edit-scroll'
+                    className='left-padding'
+                  >
+                    <Form.Field
                       loading={loading}
                       id="select"
                       control={Select}
@@ -187,8 +198,8 @@ class CreateFarmerForm extends Component {
                       value={form.cooperative || ""}
                       // error={errors.cooperative}
                       search
-                  />
-                  <Form.Field
+                    />
+                    <Form.Field
                       loading={loadingZone}
                       id="select"
                       control={Select}
@@ -198,10 +209,10 @@ class CreateFarmerForm extends Component {
                       placeholder="cooperativeZone"
                       name="cooperativeZone"
                       value={form.cooperativeZone || ""}
-                      // error={errors.cooperativeZone}
-                  />
-                  
-                  <Form.Field
+                    // error={errors.cooperativeZone}
+                    />
+
+                    <Form.Field
                       loading={loadingSite}
                       id="select"
                       control={Select}
@@ -211,10 +222,10 @@ class CreateFarmerForm extends Component {
                       placeholder="cooperative Site"
                       name="cooperativeSite"
                       value={form.cooperativeSite || ""}
-                      // error={errors.cooperativeSite}
-                  />
+                    // error={errors.cooperativeSite}
+                    />
 
-									<Form.Field
+                    <Form.Field
                       id="select"
                       control={Select}
                       label="Crop Cultivated"
@@ -225,36 +236,36 @@ class CreateFarmerForm extends Component {
                       value={form.cropCultivated || ""}
                       // error={errors.cropCultivated}
                       search
-                  />
-									<Form.Input
+                    />
+                    <Form.Input
                       label="Cultivated Size"
                       placeholder="Cultivated Size"
                       name="cultivatedSize"
                       type="text"
                       onChange={this.handleChange}
                       value={form.cultivatedSize || ""}
-                      // error={errors.cultivatedSize}
-                  />
-									<Form.Group widths='equal'>
-									<SemanticDatepicker
-									    label="Date of Birth"
-										placeholder="Date of birth"
-										name='dateOfBirth'
-                    onChange={this.handleChange}
-                    value={form.dateOfBirth || ""}
-                    // error={errors.dateOfBirth}
-									/>
-									</Form.Group>
-										<Form.Input
+                    // error={errors.cultivatedSize}
+                    />
+                    <Form.Group widths='equal'>
+                      <SemanticDatepicker
+                        label="Date of Birth"
+                        placeholder="Date of birth"
+                        name='dateOfBirth'
+                        onChange={this.handleChange}
+                        value={form.dateOfBirth || ""}
+                      // error={errors.dateOfBirth}
+                      />
+                    </Form.Group>
+                    <Form.Input
                       label="Email"
                       placeholder="Email"
                       name="email"
                       type="text"
                       onChange={this.handleChange}
                       value={form.email || ""}
-                      // error={errors.email}
-                      />
-									 <Form.Field
+                    // error={errors.email}
+                    />
+                    <Form.Field
                       id="select"
                       control={Select}
                       label="Farmer Type"
@@ -263,7 +274,7 @@ class CreateFarmerForm extends Component {
                       placeholder="Farmer Type"
                       name="farmerType"
                       value={form.farmerType || ""}
-                      // error={errors.farmerType}
+                    // error={errors.farmerType}
                     />
                     <Form.Input
                       label="First Name"
@@ -272,9 +283,9 @@ class CreateFarmerForm extends Component {
                       type="text"
                       onChange={this.handleChange}
                       value={form.firstName || ""}
-                      // error={errors.firstName}
-                      />
-										<Form.Field
+                    // error={errors.firstName}
+                    />
+                    <Form.Field
                       id="select"
                       control={Select}
                       label="Gender"
@@ -283,7 +294,7 @@ class CreateFarmerForm extends Component {
                       placeholder="gender"
                       name="gender"
                       value={form.gender || ""}
-                      // error={errors.gender}
+                    // error={errors.gender}
                     />
                     <Form.Input
                       label="Last Name"
@@ -292,52 +303,52 @@ class CreateFarmerForm extends Component {
                       type="text"
                       onChange={this.handleChange}
                       value={form.lastName || ""}
-                      // error={errors.lastName}
-                      />
-									</div>
-								</Grid.Column>
-								<Grid.Column floated='right' width={8}>
-									<div
-										id='edit-scroll'
-										className='left-padding'
-									>
-										<Form.Input
+                    // error={errors.lastName}
+                    />
+                  </div>
+                </Grid.Column>
+                <Grid.Column floated='right' width={8}>
+                  <div
+                    id='edit-scroll'
+                    className='left-padding'
+                  >
+                    <Form.Input
                       label="Membership Amount"
                       placeholder="membership Amount"
                       name="membershipAmount"
                       type="text"
                       onChange={this.handleChange}
                       value={form.membershipAmount || ""}
-                      // error={errors.membershipAmount}
-                      />
-									   <Form.Input
+                    // error={errors.membershipAmount}
+                    />
+                    <Form.Input
                       label="National Id"
                       placeholder="national Id"
                       name="nationalId"
                       type="text"
                       onChange={this.handleChange}
                       value={form.nationalId || ""}
-                      // error={errors.nationalId}
-                      />
-									   <Form.Input
+                    // error={errors.nationalId}
+                    />
+                    <Form.Input
                       label="Nationality"
                       placeholder="nationality"
                       name="nationality"
                       type="text"
                       onChange={this.handleChange}
                       value={form.nationality || ""}
-                      // error={errors.nationality}
-                      />
-									   <Form.Input
+                    // error={errors.nationality}
+                    />
+                    <Form.Input
                       label="Phone Number"
                       placeholder="phone Number"
                       name="phoneNumber"
                       type="text"
                       onChange={this.handleChange}
                       value={form.phoneNumber || ""}
-                      // error={errors.phoneNumber}
-                      />
-									   <Form.Field
+                    // error={errors.phoneNumber}
+                    />
+                    <Form.Field
                       id="select"
                       control={Select}
                       label="Status"
@@ -346,7 +357,7 @@ class CreateFarmerForm extends Component {
                       placeholder="status"
                       name="status"
                       value={form.status || ""}
-                      // error={errors.status}
+                    // error={errors.status}
                     />
                     <Form.Field
                       id="select"
@@ -357,9 +368,9 @@ class CreateFarmerForm extends Component {
                       placeholder="Select province"
                       name="province"
                       value={form.province || ""}
-                      // error={errors.province}
-                  />
-                  <Form.Field
+                    // error={errors.province}
+                    />
+                    <Form.Field
                       loading={loadingDistricts}
                       id="select"
                       control={Select}
@@ -369,9 +380,9 @@ class CreateFarmerForm extends Component {
                       placeholder="Select district"
                       name="districtByProvince"
                       value={form.districtByProvince || ""}
-                      // error={errors.districtByProvince}
-                  />
-                  <Form.Field
+                    // error={errors.districtByProvince}
+                    />
+                    <Form.Field
                       loading={loadingSectors}
                       id="select"
                       control={Select}
@@ -381,9 +392,9 @@ class CreateFarmerForm extends Component {
                       placeholder="Select sector"
                       name="sectors"
                       value={form.sectors || ""}
-                      // error={errors.sectors}
-                  />
-                  <Form.Field
+                    // error={errors.sectors}
+                    />
+                    <Form.Field
                       loading={loadingCells}
                       id="select"
                       control={Select}
@@ -393,9 +404,9 @@ class CreateFarmerForm extends Component {
                       placeholder="Select sell"
                       name="cells"
                       value={form.cells || ""}
-                      // error={errors.cells}
-                  />
-									   <Form.Field
+                    // error={errors.cells}
+                    />
+                    <Form.Field
                       id="select"
                       control={Select}
                       label="Village"
@@ -404,86 +415,88 @@ class CreateFarmerForm extends Component {
                       placeholder="village"
                       name="villageId"
                       value={form.villageId || ""}
-                      // error={errors.villageId}
+                    // error={errors.villageId}
                     />
-                                      
-										<Button
+
+                    <Button
                       loading={createFarmerLoading}
-											primary
-											className='btn-create-farmer'
-											type='submit'
-										>
-											Save
+                      primary
+                      className='btn-create-farmer'
+                      type='submit'
+                    >
+                      Save
 										</Button>
-									</div>
-								</Grid.Column>
-							</Grid>
-						</Form>
-					</Card>
-				</Card.Group>
-				<p id='footer-content'>Copyright &copy; MAHWI Tech Ltd</p>
-			</div>
-		);
-	}
+                  </div>
+                </Grid.Column>
+              </Grid>
+            </Form>
+          </Card>
+        </Card.Group>
+        <p id='footer-content'>Copyright &copy; MAHWI Tech Ltd</p>
+      </div>
+    );
+  }
 };
 
 const mapStateToProps = ({
-    user: { profile },
-    farmer: {
-        createFarmer: {
-          loading: createFarmerLoading,
-          message: messageFarmer,
-          errors: errorsFarmer,
-        }  
+  user: { profile },
+  farmer: {
+    createFarmer: {
+      loading: createFarmerLoading,
+      message: messageFarmer,
+      errors: errorsFarmer,
+    }
+  },
+  cooperative: {
+    listOfProvinces,
+    listOfDistrictsByProvinces,
+    listOfSectorsByDistricts,
+    listOfCellsBySectors,
+    listOfVillagesByCell,
+    fetchDistrictsByProvinces: {
+      loading: loadingDistrictsByProvinces
     },
-     cooperative: { 
-        listOfProvinces, 
-        listOfDistrictsByProvinces,
-        listOfSectorsByDistricts,
-        listOfCellsBySectors,
-        listOfVillagesByCell,
-        fetchDistrictsByProvinces: {
-            loading: loadingDistrictsByProvinces
-        },
-        fetchSectorsByDistricts: {
-            loading: loadingSectorsByDistricts
-        },
-        fetchCellsBySectors: {
-            loading: loadingCells
-        }
-        },
+    fetchSectorsByDistricts: {
+      loading: loadingSectorsByDistricts
+    },
+    fetchCellsBySectors: {
+      loading: loadingCells
+    }
+  },
 
-    organization: { 
-        listOfOrganization, 
-        fetchOrganizations: { loading, message, errors }, 
-        listOfZoneByCooperative,
-        fetchZoneByCooperative: {
-            loading: loadingZone
-        },
-        listOfSiteByZone,
-        fetchSiteByZone: {
-            loading: siteLoading
-        },
-        }}) => ({
-        listOfOrganization,
-        listOfZoneByCooperative,
-        listOfSiteByZone,
-        listOfProvinces,
-        listOfDistrictsByProvinces,
-        listOfSectorsByDistricts,
-        listOfCellsBySectors,
-        listOfVillagesByCell,
-        loadingDistrictsByProvinces,
-        loadingSectorsByDistricts,
-        loadingCells,
-        loadingZone,
-        siteLoading,
-        createFarmerLoading,
-        messageFarmer,
-        errorsFarmer
-    });
+  organization: {
+    listOfOrganization,
+    fetchOrganizations: { loading, message, errors },
+    listOfZoneByCooperative,
+    fetchZoneByCooperative: {
+      loading: loadingZone
+    },
+    listOfSiteByZone,
+    fetchSiteByZone: {
+      loading: siteLoading
+    },
+  } }) => ({
+    listOfOrganization,
+    listOfZoneByCooperative,
+    listOfSiteByZone,
+    listOfProvinces,
+    listOfDistrictsByProvinces,
+    listOfSectorsByDistricts,
+    listOfCellsBySectors,
+    listOfVillagesByCell,
+    loadingDistrictsByProvinces,
+    loadingSectorsByDistricts,
+    loadingCells,
+    loadingZone,
+    siteLoading,
+    createFarmerLoading,
+    messageFarmer,
+    errorsFarmer
+  });
 
-export default connect(mapStateToProps, { getOrganization, 
-getZoneByCooperative, getSiteByZone,  getProvinces, 
-getDistrictByProvinces, getSectorsByDistricts, getCellsBySectors, 
-getVillagesByCell, create })(CreateFarmerForm);
+export default connect(mapStateToProps, {
+  getOrganization,
+  getZoneByCooperative, getSiteByZone, getProvinces,
+  getDistrictByProvinces, getSectorsByDistricts, getCellsBySectors,
+  getVillagesByCell, create
+})(CreateFarmerForm);

@@ -5,3 +5,11 @@ export const mapValues = (prop) => {
                 value: prop.id
             }
         }
+
+export const mapValuesEdit = (prop) => {
+            return {
+                key: prop && prop.id,
+                text: prop && prop.name,
+                value: prop && prop.id
+            }
+        }
