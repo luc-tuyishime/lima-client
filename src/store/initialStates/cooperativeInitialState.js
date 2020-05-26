@@ -40,5 +40,21 @@ module.exports = {
         loading: false,
         message: '',
         errors: {}
-    }
+    },
+    listOneCooperative: [],
+    fetchOneCooperative: {
+        loading: false,
+        message: '',
+        errors: {}
+    },
+     updateCooperative: {
+        loading: false,
+        message: '',
+        errors: {}
+    },
+     deleteCooperative: {
+        loading: false,
+        message: '',
+        errors: {}
+    },
 };

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Image, Form, Message } from 'semantic-ui-react';
+import { ToastContainer, toast } from 'react-toastify';
 import { Link, Redirect } from 'react-router-dom';
 import { login } from '../../actions/user';
 import { connect } from 'react-redux';
@@ -8,6 +9,8 @@ import Btn from '../common/Button/Button';
 import RaindropImage from '../common/Raindrop/Raindrop';
 
 import './Login.scss';
+
+const customId = "custom-id-yes";
 
 const LimaLogo = require('../../assets/images/Logo2.png');
 
@@ -24,23 +27,32 @@ export class Login extends Component {
     newRole: ''
   };
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    const { profile } = nextProps;
+  static getDerivedStateFromProps(props) {
+    let eeee = props.errors; 
+    const { profile } = props;
     const { authorities } = profile;
     const result = authorities;
     const result2 = result && result.map(obj => {
       return obj.authority
     })
 
-    if (nextProps.message && nextProps.message.includes('signIn successfully')) {
-      this.props.history.push('/dashboard');
-    }
-    const { errors } = this.state;
-    this.setState({
-      errors: { ...errors, ...nextProps.errors },
-      newRole: result2
+    const alertMessage =  eeee && toast.error(eeee, {
+      toastId: customId
     });
+
+    if(result2 && result2.includes('ROLE_ADMIN')){
+      props.history.push('/organization')
+    }
+
+    if(result2 && result2.includes('ROLE_USER')){
+      props.history.push('/dashboard')
+    }
+
+    return {
+      newRole: result2
+    }
+
+    return !props.loading && alertMessage;
   }
 
   handleChange = (e) => {
@@ -73,7 +85,8 @@ export class Login extends Component {
     const { form, errors } = this.state;
     return (
       <div className="select-part" id="element">
-        {!loading && Object.keys(profile).length ? <Redirect to='/dashboard' /> : ''}
+      <ToastContainer position={toast.POSITION.TOP_RIGHT} />
+        {/* {!loading && Object.keys(profile).length ? <Redirect to='/dashboard' /> : ''}   */}
         <Grid divided="vertically">
           <Grid.Row columns={2}>
             <Grid.Column>
@@ -87,19 +100,6 @@ export class Login extends Component {
               <div>
                 <Image className="logo-lima" src={LimaLogo} alt="logo" />
                 <p className="text-lima">Agriculture Digitized</p>
-
-                {(errors[0]) ? (
-                <Grid centered columns={2}>
-                <Grid.Column>
-                <Message color='red'>
-                  <p className="message-text">Sorry! Bad credentials</p>
-                </Message>
-                </Grid.Column>
-                </Grid> ) : 
-                !loading && newRole.includes('ROLE_ADMIN') ? 
-                <Redirect to='/organization' /> : ''
-                }
-
                 <p className="login-text">LOGIN</p>
                 <Grid centered columns={2}>
                   <Grid.Column>

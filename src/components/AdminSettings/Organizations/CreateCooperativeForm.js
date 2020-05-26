@@ -100,7 +100,7 @@ class CreateOrganizationForm extends Component {
         return this.setState && alertMessage;
     };
 
-     handleSubmit = (e) => {
+    handleSubmit = (e) => {
       e.preventDefault();
       const { createCooperative } = this.props;
       const { errors, form } = this.state;
@@ -130,12 +130,6 @@ class CreateOrganizationForm extends Component {
         return (
             <div>
             <ToastContainer position={toast.POSITION.TOP_RIGHT} />
-                <Card.Group className="table-card">
-                    <Card fluid>
-                        <Card.Content className="header-bg-color">
-                            Create Cooperative
-                  </Card.Content>
-                        <Card.Content>
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Group widths='equal'>
                                     <Form.Input
@@ -277,9 +271,6 @@ class CreateOrganizationForm extends Component {
                                     CREATE
                                </Btn>
                             </Form>
-                        </Card.Content>
-                    </Card>
-                </Card.Group>
                 <p id="footer-content">Copyright &copy; MAHWI Tech Ltd</p>
             </div>
         );
