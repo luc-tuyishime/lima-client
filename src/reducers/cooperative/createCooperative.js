@@ -13,14 +13,16 @@ export default (state, { type, payload }) => {
                 createCooperative: { ...state.createCooperative, loading: false }
             };
         case cooperativeActionsTypes.CREATE_COOPERATIVE_SUCCESS:
+        console.log('sucess', payload);
             return {
                 ...state,
                 createCooperative: { loading: false, message: payload, errors: {} }
             };
         case cooperativeActionsTypes.CREATE_COOPERATIVE_FAILURE:
+        console.log('failll ==>', payload);
             return {
                 ...state,
-                createCooperative: { loading: false, message: '', errors: payload.message }
+                createCooperative: { loading: false, message: '', errors: payload.cooperativeVillageId }
             };
         default:
             return null;

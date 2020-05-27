@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Table, Icon, Form, Select } from 'semantic-ui-react';
+import { Card, Table, Icon, Form, Select, Message } from 'semantic-ui-react';
 import { ToastContainer, toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -10,6 +10,8 @@ import { mapValues } from '../../../helpers/mapValues';
 
 import Btn from '../../common/Button/Button';
 import '../../../assets/css/table.scss';
+
+const customId2 = "custom-id-yes2";
 
 class CreateOrganizationForm extends Component {
 
@@ -39,7 +41,8 @@ class CreateOrganizationForm extends Component {
       loadingCellsBySectors: false,
       loading: false,
       message: '',
-      key: ''
+      key: '',
+      errorUp: ''
         
     }
 
@@ -81,23 +84,26 @@ class CreateOrganizationForm extends Component {
       });
    };
 
-    UNSAFE_componentWillReceiveProps = (nextProps) => {
-        const alertMessage = (nextProps.messageCooperative && toast.success('Cooperative created, thank you..'))
-              || (nextProps.errorsCooperative && toast.error(nextProps.errorsCooperative));
-        const cellsLoading = nextProps && nextProps.fetchCellsBySectors;
-        this.setState({
-            loadingProvinces: nextProps.loading,
-            loading: nextProps.loadingDistrictsByProvinces,
-            loadingSectorsByDistricts: nextProps.loadingSectorsByDistricts,
+    static getDerivedStateFromProps = (props) => {
+        console.log('props ==>', props);
+        const alertMessage = (props.messageCooperative && toast.success('Cooperative created, thank you..', {
+        toastId: customId2
+        }));
+        const cellsLoading = props && props.fetchCellsBySectors;
+        return {
+            loadingProvinces: props.loading,
+            loading: props.loadingDistrictsByProvinces,
+            loadingSectorsByDistricts: props.loadingSectorsByDistricts,
             loadingCellsBySectors: cellsLoading && cellsLoading.loading,
-            provinces: nextProps.listOfProvinces,
-            districtsByProvinces: nextProps.listOfDistrictsByProvinces,
-            sectorsByDistricts: nextProps.listOfSectorsByDistricts,
-            cellsBySectors: nextProps.listOfCellsBySectors,
-            villagesByCell: nextProps.listOfVillagesByCell
-        });
+            provinces: props.listOfProvinces,
+            districtsByProvinces: props.listOfDistrictsByProvinces,
+            sectorsByDistricts: props.listOfSectorsByDistricts,
+            cellsBySectors: props.listOfCellsBySectors,
+            villagesByCell: props.listOfVillagesByCell,
+            errorUp: props.errorsCooperative
+        };
          
-        return this.setState && alertMessage;
+        // return this.setState && alertMessage;
     };
 
     handleSubmit = (e) => {
@@ -119,7 +125,7 @@ class CreateOrganizationForm extends Component {
         const { loadingCooperative } = this.props;
         const { form, errors, key, loading, loadingProvinces, sectorsByDistricts,
          provinces, districtsByProvinces, loadingSectorsByDistricts, 
-         loadingCellsBySectors, cellsBySectors, villagesByCell } = this.state;
+         loadingCellsBySectors, cellsBySectors, villagesByCell, errorUp } = this.state;
 
         const names = provinces.map(mapValues)
          const districtByProvince = districtsByProvinces.map(mapValues);
@@ -130,6 +136,11 @@ class CreateOrganizationForm extends Component {
         return (
             <div>
             <ToastContainer position={toast.POSITION.TOP_RIGHT} />
+            {(errorUp && Object.values(errorUp).length > 0) ? (
+               <Message color='red'>
+                     <p style={{textAlign: 'center'}}>Please fill all the input fields</p>
+               </Message>
+            ) : ''}
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Group widths='equal'>
                                     <Form.Input

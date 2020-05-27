@@ -113,7 +113,7 @@ class ViewFarmersTable extends Component {
                             </div>
                             </> : 
                             <Message info>
-                            <p className="center-text">No Farmers available, Please create..</p>
+                            <p style={{ textAlign: 'center' }} className="center-text">No Farmers available, Please create..</p>
                            </Message>
                            }
                         </Card.Content>
