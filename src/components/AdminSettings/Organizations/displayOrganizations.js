@@ -41,11 +41,13 @@ class DisplayCooperative extends Component {
         return this.setState;
     };
 
-     handleClick = (e, action, id) => {
+     handleClick = (e, action, id, res) => {
         if (action === 'delete') {
         const { deleteCooperative } = this.props;
         deleteCooperative(id);
         }
+
+        window.location.reload(); 
     };
 
     render() {
@@ -86,6 +88,7 @@ class DisplayCooperative extends Component {
                                         <Table.HeaderCell>Email</Table.HeaderCell>
                                         <Table.HeaderCell>National ID</Table.HeaderCell>
                                         <Table.HeaderCell>LIcense number</Table.HeaderCell>
+                                        <Table.HeaderCell>Action</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
 

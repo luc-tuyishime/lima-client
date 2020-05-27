@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Form, Icon, Select } from 'semantic-ui-react';
+import { Grid, Form, Icon, Select, Message } from 'semantic-ui-react';
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import UserSidebar from '../../common/Sidebar/Sidebar';
@@ -43,13 +43,14 @@ class ViewEditCooperative extends Component {
         errors: {},
         newMessage: {},
         village: {},
-        id: ''
+        id: '',
+        errorUp: {},
+        messagePass: '',
     }
 
     
 
     async componentDidMount() {
-        console.log('props ===>>', this.props);
         const {
         match: { params: { id } },
         getOneCooperative, listOneCooperative,
@@ -98,8 +99,8 @@ class ViewEditCooperative extends Component {
         const { errors, newMessage } = this.state;
         const newError = nextProps.errorsUpdate;
         const messages = nextProps.messageUpdate
-        const alertMessage = (nextProps.messageUpdate && toast.success(nextProps.messageUpdate))
-          || (Object.keys(newError).length && toast.error('Please fill all the input fields'));
+        // const alertMessage = (nextProps.messageUpdate && toast.success(nextProps.messageUpdate))
+        //   || (Object.keys(newError).length && toast.error('Please fill all the input fields'));
         const { listOneCooperative } = nextProps;
             this.setState({
                 form:{
@@ -122,9 +123,11 @@ class ViewEditCooperative extends Component {
                 loadingSectors: nextProps.loadingSectorsByDistricts,
                 loadingCells: nextProps.loadingCells,
                 errors: {...errors, ...nextProps.errorsUpdate},
-                newMessage: {...newMessage, messages }
+                newMessage: {...newMessage, messages },
+                errorUp: nextProps.errorsUpdate,
+                messagePass: nextProps.messageUpdate
             });
-       return this.setState && alertMessage;
+       return this.setState;
      };
 
      handleSubmit = (e) => {
@@ -132,12 +135,14 @@ class ViewEditCooperative extends Component {
       const { id } = this.state;
        const { updateCooperative } = this.props;
       const { errors, form, newMessage } = this.state;
+      const { contactPersonNationalId, password, cooperativeVillageId  } = form;
       const { ...formData } = form;
-      this.setState({ 
-          errors: { ...errors }, 
-          newMessage: {}
-          });
-       updateCooperative(formData, id)
+       updateCooperative(formData, id);
+       this.setState({
+           contactPersonNationalId: '',
+           password: '',
+           cooperativeVillageId: ''
+       })
    };
 
     render() {
@@ -145,7 +150,8 @@ class ViewEditCooperative extends Component {
     const { provinces,
     loadingDistricts, districtByProvinces, 
     sectorsByDistricts, loadingSectors, cellsBySectors, 
-    loadingCells, villagesByCell, village, errors, newMessage } = this.state;
+    loadingCells, villagesByCell, village, errors, newMessage, 
+    errorUp, messagePass } = this.state;
 
     let data = [];
     data.push(village);
@@ -160,6 +166,7 @@ class ViewEditCooperative extends Component {
     const { cooperative, form, id } = this.state;
         return (
             <div className="bg-container">
+            
             <ToastContainer position={toast.POSITION.TOP_RIGHT} />
                 <Navbar />
                 <MiniNavbar home="Home" settings={<>Cooperative</>} users={<><span className="blue-color">Edit Cooperative</span></>}>
@@ -170,6 +177,17 @@ class ViewEditCooperative extends Component {
                         <UserSidebar />
                     </Grid.Column>
                     <Grid.Column className="style-role" width={12}>
+                    {messagePass && messagePass === 'Record registered updated' ? 
+                    <Message color="green"><p style={{ textAlign: 'center' }}>Record registered updated</p></Message>: ''}
+                    {(errorUp && Object.values(errorUp).length > 0) ? (
+                    <Message color='red'>
+                           {Object.keys(errorUp).map((obj, i) => {
+                               return (
+                                   <div>{errorUp[obj]}</div>
+                               )
+                           })};
+                    </Message>
+                    ) : ''}
                         {form && Object.keys(form).length > 0 ?
                         <Form onSubmit={this.handleSubmit}>
                                 <Form.Group widths='equal'>
@@ -210,7 +228,7 @@ class ViewEditCooperative extends Component {
                                         placeholder="National ID...."
                                         name="contactPersonNationalId"
                                         onChange={this.handleChange}
-                                        value={form.contactPersonNationalId}
+                                        value={form.contactPersonNationalId || ""}
                                     />
                                     <Form.Input
                                         label="License Number"
@@ -228,7 +246,7 @@ class ViewEditCooperative extends Component {
                                     name="password"
                                     type="password"
                                     onChange={this.handleChange}
-                                    value={form.password}
+                                    value={form.password || ""}
                                     />  
                                     <Form.Field
                                     id="select"

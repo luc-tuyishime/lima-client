@@ -114,7 +114,6 @@ class CreateFarmerForm extends Component {
   };
 
   static getDerivedStateFromProps = (props) => {
-    console.log('errrrrrrr', props);
     const newError = props && props.errorsFarmer;
     const alertMessage = (props.messageFarmer && toast.success(props.messageFarmer,{
       toastId: customId2
