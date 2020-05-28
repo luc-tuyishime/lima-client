@@ -4,6 +4,6 @@ export default {
     exact: true,
     name: 'Edit Farmer',
     protected: true,
-    path: '/edit-farmer',
+    path: '/edit-farmer/:id',
     component: EditFarmer,
 };

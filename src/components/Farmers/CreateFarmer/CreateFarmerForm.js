@@ -14,7 +14,7 @@ import { mapValues } from '../../../helpers/mapValues';
 import { cropCultivated } from '../../../helpers/farmer/cropCultivated';
 import { types } from '../../../helpers/farmer/type';
 import { status } from '../../../helpers/farmer/status';
-import { create } from '../../../actions/farmer';
+import { create, getZone } from '../../../actions/farmer';
 
 import "../../../assets/css/scroll.scss";
 import "../../../assets/css/table.scss";
@@ -66,7 +66,8 @@ class CreateFarmerForm extends Component {
     sectorsByDistricts: [],
     cellsBySectors: [],
     villagesByCell: [],
-    errorUp: ''
+    errorUp: '',
+    newRole: ''
   };
 
   getLocations = (data, key) => {
@@ -108,12 +109,22 @@ class CreateFarmerForm extends Component {
   };
 
   componentDidMount = () => {
-    const { getOrganization, getProvinces } = this.props;
+    const { getOrganization, getProvinces, getZone } = this.props;
     getOrganization();
+    getZone();
     getProvinces();
   };
 
   static getDerivedStateFromProps = (props) => {
+    console.log('propssss ===>>>>', props);
+
+    const { profile } = props;
+    const { authorities } = profile;
+    const result = authorities;
+    const result2 = result && result.map(obj => {
+      return obj.authority
+    })
+
     const newError = props && props.errorsFarmer;
     const alertMessage = (props.messageFarmer && toast.success(props.messageFarmer,{
       toastId: customId2
@@ -134,7 +145,8 @@ class CreateFarmerForm extends Component {
       loadingCells: props.loadingCells,
       cellsBySectors: props.listOfCellsBySectors,
       villagesByCell: props.listOfVillagesByCell,
-      errorUp: props.errorsFarmer
+      errorUp: props.errorsFarmer,
+      newRole: result2
     }
   };
 
@@ -154,7 +166,7 @@ class CreateFarmerForm extends Component {
       loading, loadingZone, loadingSite, provinces,
       loadingDistricts, districtByProvinces,
       sectorsByDistricts, loadingSectors, cellsBySectors,
-      loadingCells, villagesByCell , errorUp } = this.state;
+      loadingCells, villagesByCell , errorUp, newRole } = this.state;
 
     const displayOrganizations = Organizations.map(mapValues);
     const displayZone = zone.map(mapValues);
@@ -444,7 +456,8 @@ const mapStateToProps = ({
       loading: createFarmerLoading,
       message: messageFarmer,
       errors: errorsFarmer,
-    }
+    },
+    listOfZones,
   },
   cooperative: {
     listOfProvinces,
@@ -490,12 +503,14 @@ const mapStateToProps = ({
     siteLoading,
     createFarmerLoading,
     messageFarmer,
-    errorsFarmer
+    errorsFarmer,
+    profile,
+    listOfZones
   });
 
 export default connect(mapStateToProps, {
   getOrganization,
   getZoneByCooperative, getSiteByZone, getProvinces,
   getDistrictByProvinces, getSectorsByDistricts, getCellsBySectors,
-  getVillagesByCell, create
+  getVillagesByCell, create, getZone
 })(CreateFarmerForm);

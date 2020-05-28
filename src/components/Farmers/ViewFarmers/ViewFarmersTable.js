@@ -1,20 +1,28 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Card, Table, Search, Grid, Button, Icon, Popup, Message, Pagination } from 'semantic-ui-react';
+import { Card, Table, Search, Grid, Button, Icon, Popup, 
+Message, Pagination, Modal } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { getFarmers } from '../../../actions/farmer';
+import { getFarmers, deleteFarmer } from '../../../actions/farmer';
 
 import '../../../assets/css/table.scss';
 
 class ViewFarmersTable extends Component {
-    
+
     state = {
         page: 1,
         itemsPerPage: 7,
-        farmers: []
+        farmers: [],
+        open: false
     }
+
+    closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
+    this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
+    }
+
+    close = () => this.setState({ open: false })
 
     componentDidMount = () => {
         const { getFarmers } = this.props;
@@ -25,21 +33,26 @@ class ViewFarmersTable extends Component {
         this.setState({ page: activePage });
     };
 
-     UNSAFE_componentWillReceiveProps = (nextProps) => {
-         console.log('nextProps', nextProps);
-        this.setState({
-            farmers: nextProps.listOfFarmers
-        });
+    static getDerivedStateFromProps(props) {
+        console.log('nextProps', props);
+        return {
+            farmers: props.listOfFarmers
+        };
+    };
 
-        return this.setState;
+     handleClick = (e, action, id) => {
+        if (action === 'delete') {
+        const { deleteFarmer } = this.props;
+        deleteFarmer(id) && window.location.reload()
+        }
     };
 
     render() {
-        const { farmers } = this.state;
+        const { farmers, open, closeOnEscape, closeOnDimmerClick } = this.state;
         const itemsPerPage = 7;
         const { page } = this.state;
-        const totalPages = farmers.length / itemsPerPage;
-        const items = farmers.slice(
+        const totalPages = farmers && farmers.length / itemsPerPage;
+        const items = farmers && farmers.slice(
             (page - 1) * itemsPerPage,
             (page - 1) * itemsPerPage + itemsPerPage
         );
@@ -66,56 +79,84 @@ class ViewFarmersTable extends Component {
                                         New</Button></Link>
                                 </Grid.Column>
                             </Grid>
-                           { Object.keys(farmers).length ?
-                           <>
-                            <Table className="table-card" singleLine>
-                                <Table.Header>
-                                    <Table.Row>
-                                        <Table.HeaderCell>First Name</Table.HeaderCell>
-                                        <Table.HeaderCell>Last Name</Table.HeaderCell>
-                                        <Table.HeaderCell>ID Number</Table.HeaderCell>
-                                        <Table.HeaderCell>Gender</Table.HeaderCell>
-                                        <Table.HeaderCell>Land (size)</Table.HeaderCell>
-                                        <Table.HeaderCell>DOB</Table.HeaderCell>
-                                        <Table.HeaderCell>Season</Table.HeaderCell>
-                                        <Table.HeaderCell>Phone number</Table.HeaderCell>
-                                        <Table.HeaderCell>e-mail</Table.HeaderCell>
-                                        <Table.HeaderCell>Actions</Table.HeaderCell>
-                                    </Table.Row>
-                                </Table.Header>
+                            {Object.keys(farmers).length > 0 ?
+                                <>
+                                    <Table className="table-card" singleLine>
+                                        <Table.Header>
+                                            <Table.Row>
+                                                <Table.HeaderCell>First Name</Table.HeaderCell>
+                                                <Table.HeaderCell>Last Name</Table.HeaderCell>
+                                                <Table.HeaderCell>ID Number</Table.HeaderCell>
+                                                <Table.HeaderCell>Gender</Table.HeaderCell>
+                                                <Table.HeaderCell>Land (size)</Table.HeaderCell>
+                                                <Table.HeaderCell>DOB</Table.HeaderCell>
+                                                <Table.HeaderCell>Season</Table.HeaderCell>
+                                                <Table.HeaderCell>Phone number</Table.HeaderCell>
+                                                <Table.HeaderCell>e-mail</Table.HeaderCell>
+                                                <Table.HeaderCell>Actions</Table.HeaderCell>
+                                            </Table.Row>
+                                        </Table.Header>
 
-                                <Table.Body>
-                                {_.map(items, ({ id, firstName, lastName, nationalId, gender, farm: { landSize, season }, dateOfBirth, phoneNumber, email  }) => (
-                                    <Table.Row key={id}>
-                                        <Table.Cell>{firstName}</Table.Cell>
-                                        <Table.Cell>{lastName}</Table.Cell>
-                                        <Table.Cell>{nationalId}</Table.Cell>
-                                        <Table.Cell>{gender}</Table.Cell>
-                                        <Table.Cell>{landSize}</Table.Cell>
-                                        <Table.Cell>{moment(dateOfBirth).format("dddd, MMMM Do YYYY")}</Table.Cell>
-                                        <Table.Cell>{season}</Table.Cell>
-                                        <Table.Cell>{phoneNumber}</Table.Cell>
-                                        <Table.Cell>{email}</Table.Cell>
-                                        <Table.Cell>
-                                            <Popup content='Edit' trigger={<Link to="/edit-farmer"><Icon color="yellow" name="edit" /></Link>} />
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    ))}
-                                </Table.Body>
-                            </Table>
-                            <div className="center-pagination">
-                                <Pagination
-                                    activePage={page}
-                                    totalPages={totalPages}
-                                    siblingRange={1}
-                                    onPageChange={this.setPageNum}
-                                />
-                            </div>
-                            </> : 
-                            <Message info>
-                            <p style={{ textAlign: 'center' }} className="center-text">No Farmers available, Please create..</p>
-                           </Message>
-                           }
+                                        <Table.Body>
+                                            {_.map(items, ({ id, firstName, lastName, nationalId, gender, farm: { landSize, season }, dateOfBirth, phoneNumber, email }) => (
+                                                <Table.Row key={id}>
+                                                    <Table.Cell>{firstName}</Table.Cell>
+                                                    <Table.Cell>{lastName}</Table.Cell>
+                                                    <Table.Cell>{nationalId}</Table.Cell>
+                                                    <Table.Cell>{gender}</Table.Cell>
+                                                    <Table.Cell>{landSize}</Table.Cell>
+                                                    <Table.Cell>{moment(dateOfBirth).format("dddd, MMMM Do YYYY")}</Table.Cell>
+                                                    <Table.Cell>{season}</Table.Cell>
+                                                    <Table.Cell>{phoneNumber}</Table.Cell>
+                                                    <Table.Cell>{email}</Table.Cell>
+                                                    <Table.Cell>
+                                                        <Popup content='Edit' trigger={<Link to={`/edit-farmer/${id}`}><Icon color="yellow" name="edit" /></Link>} />
+                                                        <Popup content='Delete' trigger={<Icon onClick={this.closeConfigShow(false, true)} color="red" name="trash" />} />
+                                                    </Table.Cell>
+
+                                                    {/* Confirm delete */}
+                                                        <Modal
+                                                        size="mini"
+                                                        open={open}
+                                                        closeOnEscape={closeOnEscape}
+                                                        closeOnDimmerClick={closeOnDimmerClick}
+                                                        onClose={this.close}
+                                                        >
+                                                        <Modal.Header>Delete Record</Modal.Header>
+                                                        <Modal.Content>
+                                                            <p>Are you sure you want to delete this record</p>
+                                                        </Modal.Content>
+                                                        <Modal.Actions>
+                                                            <Button onClick={this.close} negative>
+                                                            No
+                                                            </Button>
+                                                            <Button
+                                                            onClick={(e) => 
+                                                            this.handleClick(e, 'delete', id)}
+                                                            positive
+                                                            labelPosition='right'
+                                                            icon='checkmark'
+                                                            content='Yes'
+                                                            />
+                                                        </Modal.Actions>
+                                                        </Modal>
+                                                </Table.Row>
+                                            ))}
+                                        </Table.Body>
+                                    </Table>
+                                    <div className="center-pagination">
+                                        <Pagination
+                                            activePage={page}
+                                            totalPages={totalPages}
+                                            siblingRange={1}
+                                            onPageChange={this.setPageNum}
+                                        />
+                                    </div>
+                                </> :
+                                <Message info>
+                                    <p style={{ textAlign: 'center' }} className="center-text">No Farmers available, Please create..</p>
+                                </Message>
+                            }
                         </Card.Content>
                     </Card>
                 </Card.Group>
@@ -132,8 +173,8 @@ const mapStateToProps = ({
         loading,
         message,
         errors
- });
+    });
 
 
-export default connect(mapStateToProps, { getFarmers })(ViewFarmersTable);
+export default connect(mapStateToProps, { getFarmers, deleteFarmer })(ViewFarmersTable);
 
