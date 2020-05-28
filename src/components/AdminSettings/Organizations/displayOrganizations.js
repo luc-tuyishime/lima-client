@@ -44,10 +44,8 @@ class DisplayCooperative extends Component {
      handleClick = (e, action, id, res) => {
         if (action === 'delete') {
         const { deleteCooperative } = this.props;
-        deleteCooperative(id);
+        deleteCooperative(id) && window.location.reload();
         }
-
-        window.location.reload(); 
     };
 
     render() {
@@ -77,7 +75,7 @@ class DisplayCooperative extends Component {
                                     />
                                 </Grid.Column>
                             </Grid>
-                           {Object.keys(cooperatives).length ?
+                           {Object.keys(cooperatives).length > 0 ?
                            <>
                             <Table className="table-card" singleLine>
                                 <Table.Header>

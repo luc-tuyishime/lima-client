@@ -18,9 +18,10 @@ export default (state, { type, payload }) => {
                 createFarmer: { loading: false, message: payload.message, errors: {} }
             };
         case farmerActionsTypes.CREATE_FARMER_FAILURE:
+        console.log('failure ==>', payload);
             return {
                 ...state,
-                createFarmer: { loading: false, message: '', errors: payload.errors.message }
+                createFarmer: { loading: false, message: '', errors: payload }
             };
         default:
             return null;
