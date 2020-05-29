@@ -28,7 +28,6 @@ class EditFarmers extends Component {
             cooperativeZone: '',
             cooperativeSite: '',
             cropCultivated: '',
-            cropCultivated: '',
             dateOfBirth: '',
             email: '',
             farmerType: '',
@@ -68,33 +67,32 @@ class EditFarmers extends Component {
         });
     };
 
-  handleChange = (_, data) => {
-    if (data.options) {
-      const { key } = data.options.find((e) => e.value === data.value);
-      this.getLocations(data, key);
-    }
-
-    const { form } = this.state;
-    this.setState({
-      form: { ...form, [data.name]: data.value },
-      loading: false,
-      message: ''
-    });
-  };
-
     getLocations = (data, key) => {
-    const { getZoneByCooperative, getSiteByZone } = this.props;
-    if (data.name === 'cooperative') {
-      return getZoneByCooperative(key);
-    }
-    if (data.name === 'cooperativeZone') {
-      return getSiteByZone(key);
-    }
-  };
+        const { getZoneByCooperative, getSiteByZone } = this.props;
+        if (data.name === 'cooperative') {
+        return getZoneByCooperative(key);
+        }
+        if (data.name === 'cooperativeZone') {
+        return getSiteByZone(key);
+        }
+    };
 
- 
+    handleChange = (_, data) => {
+        if (data.options) {
+        const { key } = data.options.find((e) => e.value === data.value);
+        this.getLocations(data, key);
+        }
 
-     UNSAFE_componentWillReceiveProps = (nextProps) => {
+        const { form } = this.state;
+        this.setState({
+        form: { ...form, [data.name]: data.value },
+        loading: false,
+        message: ''
+        });
+    };
+
+
+    UNSAFE_componentWillReceiveProps = (nextProps) => {
         console.log('nextProps edit ==>>>>', nextProps);
         console.log('prev state ==>>>>', nextProps);
         this.setState({
@@ -123,15 +121,12 @@ class EditFarmers extends Component {
         loading, loadingZone, loadingSite, form } = this.state;
         let data = [];
         data.push(village);
-        console.log('farmer', farmers);
-        console.log('zone', zone);
-        console.log('site', site);
-
+        
+        console.log('form ==>', form);
         const displayOrganizations = Organizations.map(mapValues);
         const displayZone = zone.map(mapValues);
         const displaySite = site.map(mapValues);
         const villageIDedit = data && data.map(mapValuesEdit);
-         console.log('village', villageIDedit);
 
         const imgSource = this.props.imgUri ? { uri: this.props.imgUri } : profile
         return (
@@ -144,14 +139,14 @@ class EditFarmers extends Component {
                     <Grid.Column width={3}>
                         <UserSidebar />
                     </Grid.Column>
-                    <Grid.Column className="style-role" width={13}>
+                    <Grid.Column width={1}/>
+                    <Grid.Column className="style-role" width={10}>
                         <div className="edit-farmer">
                 <div>
                     <p className="text-farmer-edit">Farmer Info</p>
-                    <Grid columns={2} stretched>
+                    <Grid columns={1} stretched>
                         <Grid.Row>
                             <Grid.Column id="edit-scroll">
-                                <Segment>
                                     <Grid>
                                         <Grid.Column floated='left' width={5}>
                                         </Grid.Column>
@@ -159,8 +154,6 @@ class EditFarmers extends Component {
                                             <Image src={imgSource} size='tiny' className="image-rounded" circular />
                                         </Grid.Column>
                                     </Grid>
-                                    <Form>
-                                        <Form.Field>
                                             <Grid>
                                                 <Grid.Column floated='right' width={3}>
                                                     <Icon
@@ -179,7 +172,10 @@ class EditFarmers extends Component {
                                                     />
                                                 </Grid.Column>
                                             </Grid>
-                                            <Form.Field
+
+                                          <Form>
+                                            <Form.Group widths='equal'>
+                                             <Form.Field
                                                 loading={loading}
                                                 id="select"
                                                 control={Select}
@@ -199,12 +195,15 @@ class EditFarmers extends Component {
                                                 label="Cooperative Zone"
                                                 onChange={this.handleChange}
                                                 options={displayZone}
-                                                placeholder="cooperativeZone"
+                                                placeholder="Cooperative Zone"
                                                 name="cooperativeZone"
                                                 value={form.cooperativeZone || ""}
                                                 // error={errors.cooperativeZone}
                                                 />
-                                              <Form.Field
+                                            </Form.Group>
+
+                                             <Form.Group widths='equal'>
+                                             <Form.Field
                                                 loading={loadingSite}
                                                 id="select"
                                                 control={Select}
@@ -228,7 +227,9 @@ class EditFarmers extends Component {
                                                 // error={errors.cropCultivated}
                                                 search
                                                 />
-                                             <Form.Group widths='equal'>
+                                             </Form.Group>
+                                             
+                                            <Form.Group widths='equal'>
                                             <SemanticDatepicker
                                                 label="Date of Birth"
                                                 placeholder="Date of birth"
@@ -237,7 +238,6 @@ class EditFarmers extends Component {
                                                 value={form.dateOfBirth}
                                             // error={errors.dateOfBirth}
                                             />
-                                            </Form.Group>
                                             <Form.Input
                                                 label="Email"
                                                 placeholder="Email"
@@ -247,16 +247,9 @@ class EditFarmers extends Component {
                                                 value={form.email}
                                                 // error={errors.email}
                                             />
-                                            <Button className="btn-edit" primary type='submit'>Edit</Button>
-                                        </Form.Field>
-                                    </Form>
-                                </Segment>
-                            </Grid.Column>
-                            <Grid.Column id="edit-scroll">
-                                <Segment className="width-segment">
-                                    <Form>
-                                        <Form.Field>
-                                            <Form.Field
+                                             </Form.Group>
+                                             <Form.Group widths='equal'>
+                                             <Form.Field
                                                 id="select"
                                                 control={Select}
                                                 label="Farmer Type"
@@ -276,6 +269,8 @@ class EditFarmers extends Component {
                                                     value={form.firstName || ""}
                                                     // error={errors.firstName}
                                                 />
+                                             </Form.Group>
+                                             <Form.Group widths='equal'>
                                                 <Form.Field
                                                     id="select"
                                                     control={Select}
@@ -296,7 +291,9 @@ class EditFarmers extends Component {
                                                     value={form.lastName || ""}
                                                     // error={errors.lastName}
                                                 />
-                                                 <Form.Input
+                                             </Form.Group>
+                                             <Form.Group widths='equal'>
+                                              <Form.Input
                                                     label="Membership Amount"
                                                     placeholder="membership Amount"
                                                     name="membershipAmount"
@@ -305,17 +302,7 @@ class EditFarmers extends Component {
                                                     value={form.membershipAmount || ""}
                                                     // error={errors.membershipAmount}
                                                  />
-                                            <Form.Field>
-                                                <input placeholder='Address' />
-                                            </Form.Field>
-                                            <Button className="btn-edit" primary type='submit'>Edit</Button>
-                                        </Form.Field>
-                                    </Form>
-                                </Segment>
-                                <Segment className="width-segment">
-                                    <p className="text-profile">Agriculture</p>
-                                    <Form>
-                                        <Form.Field>
+
                                             <Form.Input
                                                 label="National Id"
                                                 placeholder="national Id"
@@ -325,6 +312,8 @@ class EditFarmers extends Component {
                                                 value={form.nationalId || ""}
                                                 // error={errors.nationalId}
                                              />
+                                             </Form.Group>
+                                             <Form.Group widths='equal'>
                                              <Form.Input
                                                 label="Nationality"
                                                 placeholder="nationality"
@@ -343,7 +332,9 @@ class EditFarmers extends Component {
                                                 value={form.phoneNumber || ""}
                                                 // error={errors.phoneNumber}
                                              />
-                                             <Form.Field
+                                             </Form.Group>
+                                             <Form.Group widths='equal'>
+                                              <Form.Field
                                                 id="select"
                                                 control={Select}
                                                 label="Status"
@@ -354,7 +345,7 @@ class EditFarmers extends Component {
                                                 value={form.status || ""}
                                                 // error={errors.status}
                                              />
-                                            <Form.Field>
+                                          
                                             <Form.Field
                                                 id="select"
                                                 control={Select}
@@ -366,19 +357,17 @@ class EditFarmers extends Component {
                                                 value={form.villageId || ""}
                                                 // error={errors.villageId}
                                             />
-                                            </Form.Field>
-                                            <Button className="btn-edit" primary type='submit'>Edit</Button>
-                                        </Form.Field>
+                                             </Form.Group>
+                                            <Button className="btn-edit" primary type='submit'>Update</Button>
                                     </Form>
-                                </Segment>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
                     <p id="footer-content">Copyright &copy; MAHWI Tech Ltd</p>
                 </div>
             </div>
-                    </Grid.Column>
-                </Grid>
+             </Grid.Column>
+            </Grid>
             </div>
         );
     }
