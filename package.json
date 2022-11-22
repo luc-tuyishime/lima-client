@@ -24,7 +24,7 @@
     "react-rain-animation": "^1.0.4",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-semantic-ui-datepickers": "^2.4.0",
     "react-toastify": "^5.5.0",
     "recharts": "^1.8.5",
